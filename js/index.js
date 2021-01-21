@@ -72,6 +72,7 @@ function saveImage() {
         taintTest: true,
         useCORS: true,
         background: "#fff",
+        scale: 2
     }).then(function (canvas) {
         var link = document.createElement("a");
         link.href = canvas.toDataURL('image/jpg');
