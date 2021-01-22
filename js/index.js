@@ -89,11 +89,11 @@ function appendImageFromFile(file) {
     reader.readAsDataURL(file);
 }
 function addImage(path, path_wtr,side="left") {
-    $("div.messages-body").append("<div class=\"basic-block image-block "+side+"-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><img crossorigin=\"anonymous\" src=\"" + path + "\"><img crossorigin=\"anonymous\"></span><img src=\"image//图层 2.png\"></div>");
+    $("div.messages-body").append("<div class=\"basic-block image-block "+side+"-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><img crossorigin=\"anonymous\" src=\"" + path + "\"><img crossorigin=\"anonymous\"></span><img src=\"image/Avatar-Default.png\"></div>");
     saveMessages();
 }
 function addText(str,side="left") {
-    $("div.messages-body").append("<div class=\"basic-block text-block "+side+"-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><span contenteditable=\"true\">" + str + "</span></span><img src=\"image//图层 2.png\"></div>");
+    $("div.messages-body").append("<div class=\"basic-block text-block "+side+"-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><span contenteditable=\"true\">" + str + "</span></span><img src=\"image/Avatar-Default.png\"></div>");
     saveMessages();
 }
 function addDatetime(val) {
