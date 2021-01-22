@@ -144,4 +144,36 @@ $(document).ready(function () {
         $(this).parent().parent().remove();
         saveMessages();
     });
+    // 防止富文本污染 Issue#3
+    $(document).on('paste','[contenteditable]', function(e) {
+        e.preventDefault();
+        var text = null;
+    
+        if(window.clipboardData && clipboardData.setData) {
+            // IE
+            text = window.clipboardData.getData('text');
+        } else {
+            text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('在这里输入文本');
+        }
+        if (document.body.createTextRange) {    
+            if (document.selection) {
+                textRange = document.selection.createRange();
+            } else if (window.getSelection) {
+                sel = window.getSelection();
+                var range = sel.getRangeAt(0);
+                var tempEl = document.createElement("span");
+                tempEl.innerHTML = "&#FEFF;";
+                range.deleteContents();
+                range.insertNode(tempEl);
+                textRange = document.body.createTextRange();
+                textRange.moveToElementText(tempEl);
+                tempEl.parentNode.removeChild(tempEl);
+            }
+            textRange.text = text;
+            textRange.collapse(false);
+            textRange.select();
+        } else {
+            document.execCommand("insertText", false, text);
+        }
+    });
 });
