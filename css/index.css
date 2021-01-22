@@ -178,8 +178,8 @@ body {
   border-left-color: var(--text-block-bgcolor);
 }
 
-.text-block span {
-  padding: 16px 20px 16px 20px;
+.text-block>span {
+  padding: 10px 10px;
   font: 16px/20px "Noto Sans", sans-serif;
   background-color: var(--text-block-bgcolor);
   color: black;
