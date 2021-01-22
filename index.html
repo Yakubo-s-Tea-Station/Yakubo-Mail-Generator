@@ -81,30 +81,17 @@
         </div>
 
 
-        <div class="input-group mt-3">
-            <input id="text-input" type="text" class="form-control" placeholder="输入...">
-            <div class="input-group-append">
-                <button id="enter-button" class="btn btn-success" type="submit">添加头像文件 <i
-                        class="fas fa-file-alt"></i></button>
-            </div>
-        </div>
+        <button id="add-avatar-file" class="btn btn-success" type="submit">添加头像文件 <i
+                class="fas fa-file-alt"></i></button>
         <div id="all-avatars-scroll-view">
             <div id="all-avatars">
                 <div class="avatar-display-item">
-                    <i class="far fa-times-circle fa-2x remove-button"></i>
                     <img class="avatar-icon">
                 </div>
             </div>
         </div>
-        <div class="btn-group my-3">
-            <button id="image-button" type="button" class="btn btn-primary align-items-center"
-                onclick="$('#temp-file-input').click()"><i class="fas fa-image fa-lg"></i> 添加图片</button>
-            <button id="datetime-button" type="button" class="btn btn-success"
-                onclick="addDatetime(new Date().toLocaleString())"><i class="fas fa-calendar-alt fa-lg"></i>
-                添加日期</button>
-            <button id="datetime-button" type="button" class="btn btn-secondary" onclick=" saveImage()"><i
-                    class="fas fa-download fa-lg"></i> 保存图片</button>
-        </div>
+        <button id="output-image" type="button" class="btn btn-secondary" onclick=" saveImage()"><i
+                class="fas fa-download fa-lg"></i> 保存图片</button>
 
         <div id="text-block-template" class="basic-block text-block avatar-block d-none">
             <span class="square">

@@ -13,3 +13,43 @@
 #messages-add-panel > div {
   width: 100%;
 }
+
+#add-avatar-file {
+  width: 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.avatar-display-item{
+    position: relative;
+}
+.avatar-display-item>img.avatar-icon{
+    top:0;
+}
+#all-avatars-scroll-view {
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.384);
+  max-width: 100%;
+  min-width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  height: 60px;
+}
+#all-avatars-scroll-view::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+#all-avatars-scroll-view::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #535353;
+}
+#all-avatars-scroll-view::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0px;
+  background: #ededed;
+}
+
+#output-image {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

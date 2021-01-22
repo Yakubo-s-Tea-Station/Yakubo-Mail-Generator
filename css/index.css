@@ -206,6 +206,8 @@ body {
 img.avatar-icon {
   position: absolute;
   top: 5px;
+  height: 50px;
+  width: 50px;
 }
 .left-block > img.avatar-icon {
   left: 8px;
@@ -225,38 +227,4 @@ img.avatar-icon {
 }
 .right-block > span {
   margin-right: 80px;
-}
-
-#all-avatars-scroll-view {
-  max-width: 100%;
-  min-width: 100%;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  height: 60px;
-}
-
-*::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  background: #535353;
-}
-
-*::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  background: #ededed;
-}
-
-.avatar-icon {
-  height: 50px;
-  width: 50px;
-}
-
-.avatar-display {
-  position: relative;
 }
