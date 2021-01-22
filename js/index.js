@@ -9,14 +9,14 @@ if (window.localStorage) {
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
 
     if (!state) {
         state = {
-            messages: [], 
+            messages: [],
             doc_expanded: true
         };
-    }else{
+    } else {
         loadMessages();
     }
 });
@@ -25,10 +25,10 @@ function loadMessages() {
         $(".messages-body>*").each(function () { $(this).remove(); });
         for (const message of state.messages) {
             if (message.type === "text") {
-                addText(message.value,message.left?"left":"right");
+                addText(message.value, message.left ? "left" : "right");
             }
             if (message.type === "image") {
-                addImage(message.img,message.wtr,message.left?"left":"right");
+                addImage(message.img, message.wtr, message.left ? "left" : "right");
             }
             if (message.type === "datetime") {
                 addDatetime(message.value);
@@ -88,12 +88,12 @@ function appendImageFromFile(file) {
     });
     reader.readAsDataURL(file);
 }
-function addImage(path, path_wtr,side="left") {
-    $("div.messages-body").append("<div class=\"basic-block image-block "+side+"-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><img crossorigin=\"anonymous\" src=\"" + path + "\"><img crossorigin=\"anonymous\"></span><img src=\"image/Avatar-Default.png\"></div>");
+function addImage(path, path_wtr, side = "left") {
+    $("div.messages-body").append("<div class=\"basic-block image-block " + side + "-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><img crossorigin=\"anonymous\" src=\"" + path + "\"><img crossorigin=\"anonymous\"></span><img src=\"image/Avatar-Default.png\"></div>");
     saveMessages();
 }
-function addText(str,side="left") {
-    $("div.messages-body").append("<div class=\"basic-block text-block "+side+"-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><span contenteditable=\"true\">" + str + "</span></span><img src=\"image/Avatar-Default.png\"></div>");
+function addText(str, side = "left") {
+    $("div.messages-body").append("<div class=\"basic-block text-block " + side + "-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><span contenteditable=\"true\">" + str + "</span></span><img src=\"image/Avatar-Default.png\"></div>");
     saveMessages();
 }
 function addDatetime(val) {
@@ -145,17 +145,17 @@ $(document).ready(function () {
         saveMessages();
     });
     // 防止富文本污染 Issue#3
-    $(document).on('paste','[contenteditable]', function(e) {
+    $(document).on('paste', '[contenteditable]', function (e) {
         e.preventDefault();
         var text = null;
-    
-        if(window.clipboardData && clipboardData.setData) {
+
+        if (window.clipboardData && clipboardData.setData) {
             // IE
             text = window.clipboardData.getData('text');
         } else {
             text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('在这里输入文本');
         }
-        if (document.body.createTextRange) {    
+        if (document.body.createTextRange) {
             if (document.selection) {
                 textRange = document.selection.createRange();
             } else if (window.getSelection) {
@@ -176,4 +176,6 @@ $(document).ready(function () {
             document.execCommand("insertText", false, text);
         }
     });
+
+    $(document).on('focusout', '[contenteditable]', function () { saveMessages(); });
 });
