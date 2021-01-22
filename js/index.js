@@ -48,7 +48,7 @@ function saveMessages() {
             state.messages.push({
                 type: "text",
                 left: $(this).hasClass("left-block"),
-                value: $(this).text()
+                value: $(this).find("[contenteditable]").html()
             });
         } else if ($(this).hasClass("image-block")) {
             state.messages.push({
@@ -93,7 +93,7 @@ function addImage(path, path_wtr, side = "left") {
     saveMessages();
 }
 function addText(str, side = "left") {
-    $("div.messages-body").append("<div class=\"basic-block text-block " + side + "-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><span contenteditable=\"true\">" + str + "</span></span><img src=\"image/Avatar-Default.png\"></div>");
+    $("div.messages-body").append("<div class=\"basic-block text-block " + side + "-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><div contenteditable=\"true\">" + str + "</div></span><img src=\"image/Avatar-Default.png\"></div>");
     saveMessages();
 }
 function addDatetime(val) {

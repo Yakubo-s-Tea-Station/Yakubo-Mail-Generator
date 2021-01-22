@@ -178,6 +178,10 @@ body {
   border-left-color: var(--text-block-bgcolor);
 }
 
+.text-block div[contenteditable] {
+  text-align: left;
+}
+
 .text-block>span {
   padding: 10px 10px;
   font: 16px/20px "Noto Sans", sans-serif;
