@@ -1,68 +1,6 @@
-let state;
-if (window.localStorage) {
-    state = JSON.parse(window.localStorage.getItem("state"));
-    if (window.location.search) {
-        let params = (new URL(document.location)).searchParams;
-        if (params.get("resetState") != null) {
-            state = null;
-        }
-    }
-}
+document.write("<script language=javascript src='js/messages-control.js'></script>");
+document.write("<script language=javascript src='js/global-status.js'></script>");
 
-$(document).ready(function () {
-
-    if (!state) {
-        state = {
-            messages: [],
-            doc_expanded: true
-        };
-    } else {
-        loadMessages();
-    }
-});
-function loadMessages() {
-    if (state.messages && state.messages.length > 0) {
-        $(".messages-body>*").each(function () { $(this).remove(); });
-        for (const message of state.messages) {
-            if (message.type === "text") {
-                addText(message.value, message.left ? "left" : "right");
-            }
-            if (message.type === "image") {
-                addImage(message.img, message.wtr, message.left ? "left" : "right");
-            }
-            if (message.type === "datetime") {
-                addDatetime(message.value);
-            }
-        }
-    }
-}
-function saveMessages() {
-    state.messages = [];
-    $("div.messages-body > div").each(function () {
-        if ($(this).hasClass("time-budge")) {
-            state.messages.push({
-                type: "datetime",
-                value: $(this).text()
-            });
-        } else if ($(this).hasClass("text-block")) {
-            state.messages.push({
-                type: "text",
-                left: $(this).hasClass("left-block"),
-                value: $(this).find("[contenteditable]").html()
-            });
-        } else if ($(this).hasClass("image-block")) {
-            state.messages.push({
-                type: "image",
-                left: $(this).hasClass("left-block"),
-                img: $(this).find("img:nth-of-type(1)").attr("src"),
-                wtr: $(this).find("img:nth-of-type(2)").attr("src")
-            });
-        }
-    });
-    if (window.localStorage) {
-        window.localStorage.setItem("state", JSON.stringify(state));
-    }
-}
 function saveImage() {
     $("body").addClass("body-lock");
     document.body.scrollIntoView()
@@ -81,101 +19,133 @@ function saveImage() {
     });
     $("body").removeClass("body-lock");
 }
-function appendImageFromFile(file) {
-    var reader = new FileReader();
-    reader.addEventListener("load", function (event) {
-        addImage(event.target.result);
-    });
-    reader.readAsDataURL(file);
-}
-function addImage(path, path_wtr, side = "left") {
-    $("div.messages-body").append("<div class=\"basic-block image-block " + side + "-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><img crossorigin=\"anonymous\" src=\"" + path + "\"><img crossorigin=\"anonymous\"></span><img src=\"image/Avatar-Default.png\"></div>");
-    saveMessages();
-}
-function addText(str, side = "left") {
-    $("div.messages-body").append("<div class=\"basic-block text-block " + side + "-block\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><i class=\"fas fa-retweet fa-2x i-green\"></i><div contenteditable=\"true\">" + str + "</div></span><img src=\"image/Avatar-Default.png\"></div>");
-    saveMessages();
-}
-function addDatetime(val) {
-    $("div.messages-body").append("<div class=\"time-budge\"><span><i class=\"far fa-times-circle fa-2x i-red\"></i><span contenteditable=\"true\">" + val + "</span></span></div>");
-    saveMessages();
-}
+// $(document).on("mousedown", ".basic-block", function (e) {
+//     if(e.which==3){
 
+//     }
+// });
+// $(document).on("contextmenu", ".basic-block", function (e) {
+//     return false;
+// });
 $(document).ready(function () {
-    $(document).on("load", "img", function (event) {
-        event.target.setAttribute("data-loaded", "true");
-    });
-    // 文字输入按钮click事件
-    $(document).on("click", "#enter-button", (function () {
-        let new_msg = $("#text-input").val().trim();
-        if (new_msg.length > 0) {
-            addText(new_msg);
-            $("#text-input").val("");
+    loadData();
+    let publicItems = {
+        up: {
+            icon: "fa-level-up",
+            name: "上移",
+            callback: function (key, opt) {
+                opt.$trigger.prev().before(opt.$trigger);
+                saveMessages();
+            }
+        },
+        down:
+        {
+            icon: "fa-level-down",
+            name: "下移",
+            callback: function (key, opt) {
+                opt.$trigger.next().after(opt.$trigger);
+                saveMessages();
+            }
+        },
+        remove:
+        {
+            icon: "fa-trash",
+            name: "删除",
+            callback: function (key, opt) {
+                opt.$trigger.remove();
+                saveMessages();
+            }
+        },
+        duplicate:
+        {
+            icon: "fa-copy",
+            name: "复制",
+            callback: function (key, opt) {
+                opt.$trigger.parent().append(opt.$trigger.clone());
+                saveMessages();
+            }
+        },
+        "sep1": "---------"
+    };
+    let avatarItems = {
+        changeAvatar:
+        {
+            icon: "fa-user",
+            name: "更换头像"
         }
-        saveMessages();
-        $("#text-input")[0].scrollIntoView();
-        $("#text-input")[0].focus();
-    }));
-    // 拖拽载入图片事件
-    $("body").bind("drop", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        files = event.originalEvent.dataTransfer.files
-        if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                appendImageFromFile(files[0]);
+    }
+    let retweetItems = {
+        changeSide: {
+            icon: "fa-retweet",
+            name: "换边",
+            callback: function () {
+                new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
+                $(this).removeClass("left-block").removeClass("right-block").addClass(new_class);
+                saveMessages();
+            }
+        }
+    }
+    let colorItems = {
+        bgColor: {
+            type: "text",
+            name: "更换背景颜色",
+            events: {
+            }
+        },
+        fontColor:
+        {
+            type: "text",
+            name: "更换字体颜色"
+        }
+    }
+    $.contextMenu({
+        selector: ".time-block",
+        zIndex: 100,
+        items: Object.assign({}, publicItems, colorItems),
+        events: {
+            show: function (opt) {
+                $.contextMenu.setInputValues(opt,
+                    {
+                        bgColor: opt.$trigger.children("span").css("background-color"),
+                        fontColor: opt.$trigger.find("[contenteditable]").css("color")
+                    }
+                );
+            },
+            hide: function (opt) {
+                new_data = $.contextMenu.getInputValues(opt);
+                opt.$trigger.children("span").css("background-color", new_data.bgColor);
+                opt.$trigger.find("[contenteditable]").css("color", new_data.fontColor);
+                saveMessages();
             }
         }
     });
-    $("body").bind("dragover", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
+    let imageItems = Object.assign({}, Object.assign({}, publicItems, retweetItems), avatarItems);
+    $.contextMenu({
+        selector: ".image-block",
+        zIndex: 100,
+        items: imageItems
     });
-
-    // 交换位置按钮
-    $(document).on("click", ".fa-retweet", function () {
-        block_root = $(this).parent().parent();
-        new_class = block_root.hasClass("left-block") ? "right-block" : "left-block";
-        block_root.removeClass("left-block").removeClass("right-block").addClass(new_class);
-        saveMessages();
-    });
-    // 删除按钮
-    $(document).on("click", ".fa-times-circle", function () {
-        $(this).parent().parent().remove();
-        saveMessages();
-    });
-    // 防止富文本污染 Issue#3
-    $(document).on('paste', '[contenteditable]', function (e) {
-        e.preventDefault();
-        var text = null;
-
-        if (window.clipboardData && clipboardData.setData) {
-            // IE
-            text = window.clipboardData.getData('text');
-        } else {
-            text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('在这里输入文本');
-        }
-        if (document.body.createTextRange) {
-            if (document.selection) {
-                textRange = document.selection.createRange();
-            } else if (window.getSelection) {
-                sel = window.getSelection();
-                var range = sel.getRangeAt(0);
-                var tempEl = document.createElement("span");
-                tempEl.innerHTML = "&#FEFF;";
-                range.deleteContents();
-                range.insertNode(tempEl);
-                textRange = document.body.createTextRange();
-                textRange.moveToElementText(tempEl);
-                tempEl.parentNode.removeChild(tempEl);
+    $.contextMenu({
+        selector: ".text-block",
+        zIndex: 100,
+        items: Object.assign({}, imageItems, colorItems),
+        events: {
+            show: function (opt) {
+                $.contextMenu.setInputValues(opt,
+                    {
+                        bgColor: opt.$trigger.children("span").css("background-color"),
+                        fontColor: opt.$trigger.find("[contenteditable]").css("color")
+                    }
+                );
+            },
+            hide: function (opt) {
+                new_data = $.contextMenu.getInputValues(opt);
+                opt.$trigger.children("span.square").css("background-color", new_data.bgColor);
+                opt.$trigger.children("span.triangle").css("border-left-color", new_data.bgColor);
+                opt.$trigger.children("span.triangle").css("border-right-color", new_data.bgColor);
+                opt.$trigger.find("[contenteditable]").css("color", new_data.fontColor);
+                saveMessages();
             }
-            textRange.text = text;
-            textRange.collapse(false);
-            textRange.select();
-        } else {
-            document.execCommand("insertText", false, text);
         }
     });
-
-    $(document).on('focusout', '[contenteditable]', function () { saveMessages(); });
 });

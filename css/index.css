@@ -55,6 +55,7 @@ body {
 }
 /* 总背景框 */
 .messages-canvas {
+  z-index: 0;
   position: relative;
   width: var(--messages-canvas-width);
   margin: auto;
@@ -63,13 +64,8 @@ body {
   background-size: 100%;
   background-repeat: repeat;
 }
-.messages-body {
+#messages-body {
   margin: 20px 8px;
-}
-.messages-body::after {
-  clear: both;
-  display: block;
-  content: "";
 }
 .messages-background {
   position: absolute;
@@ -96,41 +92,128 @@ body {
   size: 100% 100%;
   opacity: 0;
 }
+/* 基础框 */
+.basic-block {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+.basic-block::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  background-color: rgba(59, 59, 59, 0.685);
+  -webkit-transform: scale(0.5, 0.5);
+  transform: scale(0.5, 0.5);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.basic-block:hover::before {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
 
 /* 时间框 */
-.time-budge {
-  position: relative;
+.time-block {
+  padding: 5px 0;
   text-align: center;
   font-size: smaller;
   font-weight: normal;
   color: #b3b3b3;
-  box-sizing: border-box;
-  margin-bottom: 20px;
 }
 
-.time-budge span {
+.time-block > span {
+  position: relative;
   background-color: #ffa9da;
   color: white;
   padding: 1px 14px;
   border-radius: 14px;
 }
 
-/* 对话框 */
-.basic-block {
+/* 图片框、文本框 */
+.text-block > span,
+.image-block > span {
   position: relative;
-  display: block;
-  width: 100%;
-}
-.basic-block > span {
-  position: relative;
+  max-width: 100%;
   display: inline-block;
-  margin-bottom: 20px;
+  margin: 10px 0;
   width: fit-content;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   border-radius: var(--all-border-radius);
   font: 16px/20px "Noto Sans", sans-serif;
 }
+/* 图片框 - 主图 */
+.image-block img.primary-img {
+  width: 260px;
+  border-radius: var(--all-border-radius);
+}
+/* 图片框 - 水印 */
+.image-block img.water-print {
+  position: absolute;
+  right: 50px;
+  bottom: 15px;
+  height: 50px;
+  opacity: 0.6;
+  z-index: 100;
+}
+.image-block.left-block img.water-print {
+  right: 15px;
+}
+.image-block.right-block img.water-print {
+  left: 15px;
+}
+
+/* 文本框 - 箭头 */
+.text-block > span.triangle {
+  position: absolute;
+  top: 15px;
+  content: "";
+  width: 0;
+  height: 0;
+  border: solid transparent;
+}
+.text-block.left-block > span.triangle {
+  border-width: 7px 15px 7px 0px;
+  left: -10px;
+  border-right-color: var(--text-block-bgcolor);
+}
+.text-block.right-block > span.triangle {
+  border-width: 7px 0px 7px 15px;
+  right: -10px;
+  border-left-color: var(--text-block-bgcolor);
+}
+/* 文本框 - 可编辑区域 */
+.text-block div[contenteditable] {
+  text-align: left;
+  max-width: 100%;
+}
+/* 文本框 - 填充背景 */
+.text-block > span.square {
+  max-width: 65%;
+  padding: 10px 10px;
+  font: 16px/20px "Noto Sans", sans-serif;
+  background-color: var(--text-block-bgcolor);
+  color: black;
+}
+/* 头像 */
+img.avatar-icon {
+  position: absolute;
+  top: 5px;
+}
+.left-block > img.avatar-icon {
+  left: 8px;
+}
+.right-block > img.avatar-icon {
+  right: 8px;
+}
+/* 方向调整 */
 .left-block {
   text-align: left;
 }
@@ -144,133 +227,36 @@ body {
   margin-right: 80px;
 }
 
-/* 头像 */
-.basic-block > img {
-  position: absolute;
-  top: 0;
+#all-avatars-scroll-view {
+  max-width: 100%;
+  min-width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  height: 60px;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #535353;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #ededed;
+}
+
+.avatar-icon {
+  height: 50px;
   width: 50px;
-  height: 50px;
-}
-.left-block > img {
-  left: 8px;
-}
-.right-block > img {
-  right: 8px;
 }
 
-/* 箭头 */
-.basic-block > span:after {
-  position: absolute;
-  top: 15px;
-  content: "";
-  width: 0;
-  height: 0;
-  border: solid transparent;
-}
-.left-block > span:after {
-  border-width: 7px 15px 7px 0px;
-  left: -15px;
-  border-right-color: var(--text-block-bgcolor);
-}
-.right-block > span:after {
-  border-width: 7px 0px 7px 15px;
-  right: -15px;
-  border-left-color: var(--text-block-bgcolor);
-}
-
-.text-block div[contenteditable] {
-  text-align: left;
-}
-
-.text-block>span {
-  padding: 10px 10px;
-  font: 16px/20px "Noto Sans", sans-serif;
-  background-color: var(--text-block-bgcolor);
-  color: black;
-}
-
-/* 移除按钮 */
-.basic-block i:nth-of-type(1) {
-  position: absolute;
-  top: -13px;
-  height: 35px;
-  width: 35px;
-  display: none;
-  z-index: 100;
-}
-.basic-block:hover i:nth-of-type(1),
-.basic-block:focus i:nth-of-type(1),
-.basic-block:active i:nth-of-type(1) {
-  display: block;
-}
-.basic-block.left-block i:nth-of-type(1) {
-  right: -15px;
-}
-.basic-block.right-block i:nth-of-type(1) {
-  left: -15px;
-}
-
-.time-budge i:nth-of-type(1) {
-  position: absolute;
-  top: -18px;
-  left: 45%;
-  height: 35px;
-  width: 35px;
-  display: none;
-  z-index: 100;
-}
-.time-budge:hover i:nth-of-type(1),
-.time-budge:focus i:nth-of-type(1),
-.time-budge:active i:nth-of-type(1) {
-  display: block;
-}
-/* 换边按钮 */
-.basic-block i:nth-of-type(2) {
-  position: absolute;
-  bottom: -18px;
-  height: 35px;
-  width: 35px;
-  display: none;
-  z-index: 100;
-}
-.basic-block:hover i:nth-of-type(2),
-.basic-block:focus i:nth-of-type(2),
-.basic-block:active i:nth-of-type(2) {
-  display: block;
-}
-.basic-block.left-block i:nth-of-type(2) {
-  right: -15px;
-}
-.basic-block.right-block i:nth-of-type(2) {
-  left: -15px;
-}
-/* 图片 */
-.image-block > span > img:nth-of-type(1) {
-  width: 260px;
-  border-radius: var(--all-border-radius);
-}
-
-/* 水印 */
-.image-block img:nth-of-type(2) {
-  position: absolute;
-  right: 50px;
-  bottom: 15px;
-  height: 50px;
-  opacity: 0.6;
-  z-index: 100;
-}
-.image-block.left-block img:nth-of-type(2) {
-  right: 15px;
-}
-.image-block.right-block img:nth-of-type(2) {
-  left: 15px;
-}
-
-/* 图标颜色 */
-.i-red {
-  color: red;
-}
-
-.i-green {
-  color: darkgreen;
+.avatar-display {
+  position: relative;
 }

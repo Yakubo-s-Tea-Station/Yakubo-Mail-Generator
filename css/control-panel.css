@@ -1,0 +1,15 @@
+#text-input {
+  border-bottom-left-radius: 0;
+}
+#image-button {
+  border-top-left-radius: 0;
+}
+#datetime-button {
+  border-top-right-radius: 0;
+}
+#text-button {
+  border-bottom-right-radius: 0;
+}
+#messages-add-panel > div {
+  width: 100%;
+}
