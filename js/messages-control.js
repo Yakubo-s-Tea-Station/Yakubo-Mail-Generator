@@ -47,7 +47,7 @@ $(document).ready(function () {
         event.target.setAttribute("data-loaded", "true");
     });
     // 拖拽载入图片事件
-    $("body").bind("drop", function (event) {
+    $("#messages-body").bind("drop", function (event) {
         event.preventDefault();
         event.stopPropagation();
         files = event.originalEvent.dataTransfer.files
@@ -57,7 +57,15 @@ $(document).ready(function () {
             }
         }
     });
-    $("body").bind("dragover", function (event) {
+    $("#messages-body").bind("dragover", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    });
+    $(document).bind("drop", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    });
+    $(document).bind("dragover", function (event) {
         event.preventDefault();
         event.stopPropagation();
     });
