@@ -39,7 +39,7 @@ body {
 #close-help-menu {
   position: absolute;
   right: 10px;
-  bottom: 12px;
+  bottom: 0;
 }
 
 #close-help-menu > div {
@@ -171,23 +171,23 @@ body {
 }
 
 /* 文本框 - 箭头 */
-.text-block > span.triangle {
+.triangle {
   position: absolute;
-  top: 15px;
-  content: "";
-  width: 0;
-  height: 0;
+  display: inline;
+  top: 23px;
+  width: 0px;
+  height: 0px;
   border: solid transparent;
-}
-.text-block.left-block > span.triangle {
-  border-width: 7px 15px 7px 0px;
-  left: -10px;
+  border-left-color: var(--text-block-bgcolor);
   border-right-color: var(--text-block-bgcolor);
 }
-.text-block.right-block > span.triangle {
-  border-width: 7px 0px 7px 15px;
-  right: -10px;
-  border-left-color: var(--text-block-bgcolor);
+.text-block.left-block > .triangle {
+  border-width: 5px 15px 5px 0;
+  left: 68px;
+}
+.text-block.right-block > .triangle {
+  border-width: 5px 0px 5px 15px;
+  right: 68px;
 }
 /* 文本框 - 可编辑区域 */
 .text-block div[contenteditable] {
