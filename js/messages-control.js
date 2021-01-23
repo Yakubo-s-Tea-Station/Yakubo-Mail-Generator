@@ -154,7 +154,7 @@ $(document).ready(function () {
             icon: "fa-copy",
             name: "复制",
             callback: function (key, opt) {
-                opt.$trigger.parent().append(opt.$trigger.clone());
+                opt.$trigger.parent().append(opt.$trigger.clone().removeClass("context-menu-active"));
                 saveMessages();
             }
         },
