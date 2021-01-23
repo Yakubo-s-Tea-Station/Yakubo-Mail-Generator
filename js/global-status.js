@@ -66,10 +66,9 @@ function loadMessages(dict) {
             let found = false;
             let searchResult = "image/Avatar-Default.png";
             $("#all-avatars .avatar-display-item.d-inline-block").each(function () {
-                if(!found){
-                    if($this.find("img.avatar-icon").attr("md5")==message.avatarMD5)
-                    {
-                        searchResult = $this.find("img.avatar-icon").attr("src");
+                if (!found) {
+                    if ($(this).find("img.avatar-icon").attr("md5") == message.avatarMD5) {
+                        searchResult = $(this).find("img.avatar-icon").attr("src");
                         found = true;
                     }
                 }
@@ -80,10 +79,9 @@ function loadMessages(dict) {
             let found = false;
             let searchResult = "image/Avatar-Default.png";
             $("#all-avatars .avatar-display-item.d-inline-block").each(function () {
-                if(!found){
-                    if($this.find("img.avatar-icon").attr("md5")==message.avatarMD5)
-                    {
-                        searchResult = $this.find("img.avatar-icon").attr("src");
+                if (!found) {
+                    if ($(this).find("img.avatar-icon").attr("md5") == message.avatarMD5) {
+                        searchResult = $(this).find("img.avatar-icon").attr("src");
                         found = true;
                     }
                 }
@@ -120,7 +118,8 @@ function saveMessages() {
                 type: "image",
                 right: $(this).hasClass("right-block"),
                 img: $(this).find("img.primary-img").attr("src"),
-                wtr: $(this).find("img.water-print").attr("src")
+                wtr: $(this).find("img.water-print").attr("src"),
+                avatarMD5: md5($(this).find("img.avatar-icon").attr("src"))
             });
         }
     });
@@ -145,12 +144,13 @@ function addAvatarToList(dataURL) {
     new_block.find("img.avatar-icon").attr("src", dataURL);
     new_block.find("img.avatar-icon").attr("md5", md5(dataURL));
     $("#all-avatars").append(new_block);
+    refreshAvatarSelect();
     saveAvatars();
+    refreshLocalStorageInfo();
 }
 function loadAvatars(dict) {
     for (const img of dict) {
         addAvatarToList(img);
-        refreshLocalStorageInfo();
     }
 }
 function saveAvatars() {
@@ -160,6 +160,7 @@ function saveAvatars() {
             avatars.push($(this).find(".avatar-icon").attr("src"));
         });
         window.localStorage.setItem("avatars", JSON.stringify(avatars));
+        refreshAvatarSelect();
         refreshLocalStorageInfo();
         //console.log(window.localStorage.getItem("avatars"));
     }
