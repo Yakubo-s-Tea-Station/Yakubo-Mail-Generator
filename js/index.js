@@ -3,8 +3,9 @@ document.write("<script language=javascript src='js/global-status.js'></script>"
 
 function saveImage() {
     $("body").addClass("body-lock");
-    document.body.scrollIntoView()
-    let htmlDom = document.querySelector('#messages-canvas')
+    document.body.scrollIntoView();
+    let htmlDom = document.querySelector('#messages-canvas');
+    // let htmlDom = document.querySelector('#test');
     html2canvas(htmlDom, {
         allowTaint: false,
         taintTest: true,
@@ -141,8 +142,8 @@ $(document).ready(function () {
             hide: function (opt) {
                 new_data = $.contextMenu.getInputValues(opt);
                 opt.$trigger.children("span.square").css("background-color", new_data.bgColor);
-                opt.$trigger.children("span.triangle").css("border-left-color", new_data.bgColor);
-                opt.$trigger.children("span.triangle").css("border-right-color", new_data.bgColor);
+                opt.$trigger.children(".triangle").css("border-left-color", new_data.bgColor);
+                opt.$trigger.children(".triangle").css("border-right-color", new_data.bgColor);
                 opt.$trigger.find("[contenteditable]").css("color", new_data.fontColor);
                 saveMessages();
             }

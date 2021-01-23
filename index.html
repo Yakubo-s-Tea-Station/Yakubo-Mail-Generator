@@ -84,7 +84,8 @@
         <div class="input-group mb-3">
             <input id="local-storage-info" type="text" class="form-control" disabled="disabled" placeholder="输入...">
             <div class="input-group-append">
-                <button id="clear-storage" class="btn btn-danger" type="submit" onclick="localStorage.clear();refreshLocalStorageInfo();">清理缓存空间 <i
+                <button id="clear-storage" class="btn btn-danger" type="submit"
+                    onclick="localStorage.clear();refreshLocalStorageInfo();">清理缓存空间 <i
                         class="fas fa-file-alt"></i></button>
             </div>
         </div>
@@ -104,7 +105,7 @@
             <span class="square">
                 <div contenteditable="true"></div>
             </span>
-            <span class="triangle"></span>
+            <div class="triangle"></div>
             <img class="avatar-icon">
         </div>
         <div id="image-block-template" class="basic-block image-block d-none">
@@ -126,6 +127,7 @@
             onchange="appendImageFromFile(this.files[0]);"
             style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;">
     </div>
+    <div id="test" class="triangle"></div>
 </body>
 
 </html>

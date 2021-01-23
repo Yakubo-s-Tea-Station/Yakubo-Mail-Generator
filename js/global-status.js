@@ -111,7 +111,7 @@ function saveMessages() {
                 type: "text",
                 right: $(this).hasClass("right-block"),
                 value: $(this).find("[contenteditable]").html().trim(),
-                bgColor: $(this).children("span.square").css("background-color"),
+                bgColor: $(this).children(".square").css("background-color"),
                 fontColor: $(this).find("[contenteditable]").css("color"),
                 avatarMD5: md5($(this).find("img.avatar-icon").attr("src"))
             });
