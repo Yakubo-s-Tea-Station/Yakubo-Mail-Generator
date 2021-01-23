@@ -23,6 +23,7 @@ body {
   width: var(--messages-canvas-width);
   margin-right: auto;
   margin-left: auto;
+  background-color: #b3b3b348;
 }
 /* 抬头内容 */
 #control {
@@ -30,7 +31,8 @@ body {
   position: relative;
   width: 400px;
   border: none;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 30px;
   font-family: "Noto Sans SC", sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -39,7 +41,7 @@ body {
 #close-help-menu {
   position: absolute;
   right: 10px;
-  bottom: 0;
+  bottom: 10px;
 }
 
 #close-help-menu > div {
