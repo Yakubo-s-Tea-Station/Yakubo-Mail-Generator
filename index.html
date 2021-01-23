@@ -40,6 +40,8 @@
                     <ul class="px-5">
                         <li><b>本项目目前处于早期试验版本，可能存在显性或潜在的功能性缺陷。</b>已知的问题和相应的开发计划可以查询 <a
                                 href="https://github.com/D-Walter/Yakubo-Mail-Generator/issues">Issues</a> 。</li>
+                        <li><b>由于技术原因，导入头像后请刷新页面才能正常更换，该问题将在下个版本得到修正。</b></li>
+                        <li>使用右键菜单编辑。</li>
                         <li>您可以 <a href="https://docs.qq.com/form/page/DWERqZW1sakJOcXhx?_w_tencentdocx_form=1">提交表单</a>
                             反馈使用过程中遭遇的任何问题以及任何意见与建议，这将助力本项目的完善与进步，对于您的付出我们表示由衷的感谢！</li>
                     </ul>
@@ -89,8 +91,8 @@
                         class="fas fa-file-alt"></i></button>
             </div>
         </div>
-        <button id="add-avatar-file" class="btn btn-success" type="submit">添加头像文件 <i
-                class="fas fa-file-alt"></i></button>
+        <button id="add-avatar-file" class="btn btn-success" type="submit"
+            onclick="$('#temp-avatar-file-input').click()">添加头像文件(或拖入下方区域) <i class="fas fa-file-alt"></i></button>
         <div id="all-avatars-scroll-view">
             <div id="all-avatars">
                 <div id="avatar-display-item-template" class="avatar-display-item d-none">
@@ -124,7 +126,7 @@
             onchange="appendImageFromFile(this.files[0]);"
             style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;">
         <input id="temp-avatar-file-input" type="file" accept="image/png, image/jpeg"
-            onchange="appendImageFromFile(this.files[0]);"
+            onchange="importAvatarFile(this.files[0]);"
             style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;">
     </div>
     <div id="test" class="triangle"></div>

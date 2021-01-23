@@ -39,7 +39,7 @@ body {
 #close-help-menu {
   position: absolute;
   right: 10px;
-  bottom: 12px;
+  bottom: 0;
 }
 
 #close-help-menu > div {
