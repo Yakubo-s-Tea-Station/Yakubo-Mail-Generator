@@ -120,6 +120,15 @@ body {
   -webkit-transform: scale(1, 1);
   transform: scale(1, 1);
 }
+*[contenteditable] {
+  position: relative;
+  font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑,
+    STHeiti, MingLiu;
+    min-width: 16px;
+}
+*[contenteditable]:hover {
+  background-color: rgba(255, 255, 255, 0.356);
+}
 
 /* 时间框 */
 .time-block {
@@ -142,6 +151,8 @@ body {
 .text-block > span,
 .image-block > span {
   position: relative;
+  min-height: 16px;
+  min-width: 15px;
   max-width: 100%;
   display: inline-block;
   margin: 10px 0;
