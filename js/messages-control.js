@@ -23,7 +23,7 @@ function addText(str, right = false, avatar = "image/Avatar-Default.png", bgColo
     new_block.removeClass("d-none");
     new_block.addClass(right ? "right-block" : "left-block");
     new_block.find("img.avatar-icon").attr("src", avatar);
-    new_block.find("[contenteditable]").text(str);
+    new_block.find("[contenteditable]").html(str);
     new_block.children(".square").css("background-color", bgColor);
     new_block.children(".triangle").css("border-left-color", bgColor);
     new_block.children(".triangle").css("border-right-color", bgColor);
@@ -35,7 +35,7 @@ function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = tru
     new_block = $("#time-block-template").clone();
     new_block.removeAttr("id");
     new_block.removeClass("d-none");
-    new_block.find("[contenteditable]").text(val);
+    new_block.find("[contenteditable]").html(val);
     new_block.children("span").css("background-color", bgColor);
     new_block.find("[contenteditable]").css("color", fontColor);
     $("#messages-body").append(new_block);
