@@ -102,7 +102,7 @@ $(document).ready(function () {
         }
     });
     // 回车添加文本框
-    $("#text-input").on('keypress',function(e){
+    $("#text-input").on('keydown',function(e){
         if(e.keyCode == 13){
             addText($('#text-input').val());
             $('#text-input').val('');
