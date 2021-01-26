@@ -43,3 +43,22 @@ function saveImage() {
     });
     $("body").removeClass("body-lock");
 }
+
+$(()=>{
+    $.ajax({
+        type: "GET",
+        url: "notifacations.html",
+        dataType: "html",
+        success: function (response) {
+            $("#notification-contents").html(response);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: "manuals.html",
+        dataType: "html",
+        success: function (response) {
+            $("#manuals-contents").html(response);
+        }
+    });
+});

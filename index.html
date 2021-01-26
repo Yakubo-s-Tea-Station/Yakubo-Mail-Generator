@@ -32,20 +32,16 @@
     <div id="main-view">
         <div id="control">
             <h4>半自动奶精兑水机 <small>V.Alpha</small></h4>
-            <p class="text-right mb-1"><small>本项目源于对 <i class="fab fa-github-square fa-lg"></i><a
-                        href="https://github.com/shoushouminami/LaiLaiMail">来来喵(LaiLaiMail)</a> 的二次开发</small></p>
-            <div id="help-menu" class="text-left">
-                <div>
-                    <h5>使用说明</h5>
-                    <ul class="px-5">
-                        <li><b>本项目目前处于早期试验版本，可能存在显性或潜在的功能性缺陷。</b>已知的问题和相应的开发计划可以查询 <a
-                                href="https://github.com/D-Walter/Yakubo-Mail-Generator/issues">Issues</a> 。</li>
-                        <li><b>由于技术原因，导入头像后请刷新页面才能正常更换，该问题将在下个版本得到修正。</b></li>
-                        <li>使用右键菜单编辑。</li>
-                        <li>您可以 <a href="https://docs.qq.com/form/page/DWERqZW1sakJOcXhx?_w_tencentdocx_form=1">提交表单</a>
-                            反馈使用过程中遭遇的任何问题以及任何意见与建议，这将助力本项目的完善与进步，对于您的付出我们表示由衷的感谢！</li>
-                    </ul>
-                </div>
+            <p class="text-right mb-1"><small><i class="fab fa-github-square fa-lg"></i> <a
+                href="https://github.com/Yakubo-s-Tea-Station/Yakubo-Mail-Generator">本项目</a> 创意源于 <i class="fab fa-github-square fa-lg"></i> <a
+                        href="https://github.com/shoushouminami/LaiLaiMail">LaiLaiMail</a></small></p>
+            <div id="help-menu" class="text-left pl-3">
+                <h5 id="manuals-title">使用说明</h5>
+                <ul id="manuals-contents" class="px-4">
+                </ul>
+                <h5 id="notification-title">开发公告</h5>
+                <ul id="notification-contents" class="px-4">
+                </ul>
             </div>
             <div id="close-help-menu">
                 <div>
@@ -91,12 +87,12 @@
                         class="fas fa-file-alt"></i></button>
             </div>
         </div>
-        
+
         <button id="add-avatar-file" class="btn btn-success" type="submit"
             onclick="$('#temp-avatar-file-input').click()">添加头像文件(或拖入下方区域) <i class="fas fa-file-alt"></i></button>
         <div class="all-avatars-scroll-view">
             <div id="all-avatars-common" class="all-avatars">
-                
+
             </div>
         </div>
         <div id="avatar-display-item-template" class="avatar-display-item d-none">
@@ -137,7 +133,9 @@
         <input id="footer-file-input" type="file" accept="image/png, image/jpeg"
             onchange="importAvatarFile(this.files[0]);" style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;">
     </div>
-    <div id="test" class="triangle"></div>
+    <footer>
+
+    </footer>
 </body>
 
 </html>
