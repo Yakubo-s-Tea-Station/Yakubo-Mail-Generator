@@ -42,9 +42,9 @@ function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = tru
     if (save) saveMessages();
 }
 
-$(document).ready(function () {
+$(function () {
     loadData();
-    refreshAvatarSelect();
+    
     $(document).on("load", "img", function (event) {
         event.target.setAttribute("data-loaded", "true");
     });
@@ -116,23 +116,15 @@ $(document).ready(function () {
         top: {
             icon: "fa-level-up",
             name: "置顶",
-            callback: function (key, opt) {
+            callback: function (_key, opt) {
                 opt.$trigger.parent().prepend(opt.$trigger);
-                saveMessages();
-            }
-        },
-        bottom: {
-            icon: "fa-level-down",
-            name: "置底",
-            callback: function (key, opt) {
-                opt.$trigger.parent().append(opt.$trigger);
                 saveMessages();
             }
         },
         up: {
             icon: "fa-chevron-up",
             name: "上移",
-            callback: function (key, opt) {
+            callback: function (_key, opt) {
                 opt.$trigger.prev().before(opt.$trigger);
                 saveMessages();
             }
@@ -141,8 +133,16 @@ $(document).ready(function () {
         {
             icon: "fa-chevron-down",
             name: "下移",
-            callback: function (key, opt) {
+            callback: function (_key, opt) {
                 opt.$trigger.next().after(opt.$trigger);
+                saveMessages();
+            }
+        },
+        bottom: {
+            icon: "fa-level-down",
+            name: "置底",
+            callback: function (_key, opt) {
+                opt.$trigger.parent().append(opt.$trigger);
                 saveMessages();
             }
         },
@@ -150,7 +150,7 @@ $(document).ready(function () {
         {
             icon: "fa-trash",
             name: "删除",
-            callback: function (key, opt) {
+            callback: function (_key, opt) {
                 opt.$trigger.remove();
                 saveMessages();
             }
@@ -159,7 +159,7 @@ $(document).ready(function () {
         {
             icon: "fa-copy",
             name: "复制",
-            callback: function (key, opt) {
+            callback: function (_key, opt) {
                 opt.$trigger.parent().append(opt.$trigger.clone().removeClass("context-menu-active"));
                 saveMessages();
             }
@@ -241,20 +241,5 @@ $(document).ready(function () {
             }
         }
     });
+    
 });
-
-function refreshAvatarSelect() {
-    let new_scoll = $("#all-avatars-scroll-view").clone();
-    new_scoll.find("#avatar-display-item-template").remove();
-    new_scoll.find("*").removeAttr("id");
-    new_scoll.find(".avatar-icon").addClass("selectable-avatar-icon");
-    $.contextMenu.types.selectAvatar = function (item, opt, root) {
-        $("<strong>更换头像</strong>" + new_scoll.prop("outerHTML"))
-            .appendTo(this)
-            .on('click', '.selectable-avatar-icon', function () {
-                opt.$trigger.find(".avatar-icon").attr("src", $(this).prop("src"));
-                saveMessages();
-                root.$menu.trigger('contextmenu:hide');
-            });
-    };
-}

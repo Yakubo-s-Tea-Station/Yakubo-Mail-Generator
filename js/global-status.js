@@ -1,34 +1,3 @@
-$(document).ready(function () {
-    $("#all-avatars-scroll-view").bind("drop", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        files = event.originalEvent.dataTransfer.files
-        if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                importAvatarFile(files[i]);
-            }
-        }
-    });
-    $("#all-avatars-scroll-view").bind("dragover", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    });
-    $.contextMenu({
-        selector: ".avatar-display-item",
-        zIndex: 100,
-        items: {
-            remove:
-            {
-                icon: "fa-trash",
-                name: "删除",
-                callback: function (key, opt) {
-                    opt.$trigger.remove();
-                    saveAvatars();
-                }
-            }
-        }
-    });
-});
 function refreshLocalStorageInfo() {
     if (window.localStorage) {
         let size = 0;
@@ -65,7 +34,7 @@ function loadMessages(dict) {
         if (message.type === "text") {
             let found = false;
             let searchResult = "image/Avatar-Default.png";
-            $("#all-avatars .avatar-display-item.d-inline-block").each(function () {
+            $("#all-avatars-common .avatar-display-item.d-inline-block").each(function () {
                 if (!found) {
                     if ($(this).find("img.avatar-icon").attr("md5") == message.avatarMD5) {
                         searchResult = $(this).find("img.avatar-icon").attr("src");
@@ -78,7 +47,7 @@ function loadMessages(dict) {
         if (message.type === "image") {
             let found = false;
             let searchResult = "image/Avatar-Default.png";
-            $("#all-avatars .avatar-display-item.d-inline-block").each(function () {
+            $("#all-avatars-common .avatar-display-item.d-inline-block").each(function () {
                 if (!found) {
                     if ($(this).find("img.avatar-icon").attr("md5") == message.avatarMD5) {
                         searchResult = $(this).find("img.avatar-icon").attr("src");
@@ -127,41 +96,5 @@ function saveMessages() {
         window.localStorage.setItem("messages", JSON.stringify(new_messages));
         refreshLocalStorageInfo();
         //console.log(window.localStorage.getItem("messages"));
-    }
-}
-function importAvatarFile(file) {
-    var reader = new FileReader();
-    reader.addEventListener("load", function (event) {
-        addAvatarToList(event.target.result);
-    });
-    reader.readAsDataURL(file);
-}
-function addAvatarToList(dataURL) {
-    new_block = $("#avatar-display-item-template").clone();
-    new_block.removeAttr("id");
-    new_block.removeClass("d-none");
-    new_block.addClass("d-inline-block");
-    new_block.find("img.avatar-icon").attr("src", dataURL);
-    new_block.find("img.avatar-icon").attr("md5", md5(dataURL));
-    $("#all-avatars").append(new_block);
-    refreshAvatarSelect();
-    saveAvatars();
-    refreshLocalStorageInfo();
-}
-function loadAvatars(dict) {
-    for (const img of dict) {
-        addAvatarToList(img);
-    }
-}
-function saveAvatars() {
-    if (window.localStorage) {
-        avatars = [];
-        $("#all-avatars .avatar-display-item.d-inline-block").each(function () {
-            avatars.push($(this).find(".avatar-icon").attr("src"));
-        });
-        window.localStorage.setItem("avatars", JSON.stringify(avatars));
-        refreshAvatarSelect();
-        refreshLocalStorageInfo();
-        //console.log(window.localStorage.getItem("avatars"));
     }
 }

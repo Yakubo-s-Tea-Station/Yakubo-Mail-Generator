@@ -35,7 +35,7 @@
   left: 0;
   right: 0;
 }
-#all-avatars-scroll-view {
+.all-avatars-scroll-view {
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.384);
   max-width: 100%;
   min-width: 100%;
@@ -43,20 +43,20 @@
   overflow-x: scroll;
   height: 60px;
 }
-#all-avatars-scroll-view::-webkit-scrollbar {
+.all-avatars-scroll-view::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
-#all-avatars-scroll-view::-webkit-scrollbar-thumb {
+.all-avatars-scroll-view::-webkit-scrollbar-thumb {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   background: #535353;
 }
-#all-avatars-scroll-view::-webkit-scrollbar-track {
+.all-avatars-scroll-view::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0px;
   background: #ededed;
 }
-#all-avatars {
+#all-avatars-common {
   white-space: nowrap;
 }
 

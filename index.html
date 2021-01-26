@@ -91,14 +91,16 @@
                         class="fas fa-file-alt"></i></button>
             </div>
         </div>
+        
         <button id="add-avatar-file" class="btn btn-success" type="submit"
             onclick="$('#temp-avatar-file-input').click()">添加头像文件(或拖入下方区域) <i class="fas fa-file-alt"></i></button>
-        <div id="all-avatars-scroll-view">
-            <div id="all-avatars">
-                <div id="avatar-display-item-template" class="avatar-display-item d-none">
-                    <img class="avatar-icon">
-                </div>
+        <div class="all-avatars-scroll-view">
+            <div id="all-avatars-common" class="all-avatars">
+                
             </div>
+        </div>
+        <div id="avatar-display-item-template" class="avatar-display-item d-none">
+            <img class="avatar-icon selectable-avatar-icon">
         </div>
         <button id="output-image" type="button" class="btn btn-secondary" onclick=" saveImage()"><i
                 class="fas fa-download fa-lg"></i> 保存图片</button>
