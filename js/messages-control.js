@@ -43,11 +43,13 @@ function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = tru
 }
 
 $(document).ready(function () {
+    loadData();
+    refreshAvatarSelect();
     $(document).on("load", "img", function (event) {
         event.target.setAttribute("data-loaded", "true");
     });
     // 拖拽载入图片事件
-    $("#messages-body").bind("drop", function (event) {
+    $("#messages-body").on("drop", function (event) {
         event.preventDefault();
         event.stopPropagation();
         files = event.originalEvent.dataTransfer.files
@@ -57,15 +59,15 @@ $(document).ready(function () {
             }
         }
     });
-    $("#messages-body").bind("dragover", function (event) {
+    $("#messages-body").on("dragover", function (event) {
         event.preventDefault();
         event.stopPropagation();
     });
-    $(document).bind("drop", function (event) {
+    $(document).on("drop", function (event) {
         event.preventDefault();
         event.stopPropagation();
     });
-    $(document).bind("dragover", function (event) {
+    $(document).on("dragover", function (event) {
         event.preventDefault();
         event.stopPropagation();
     });
@@ -102,35 +104,33 @@ $(document).ready(function () {
         }
     });
     // 回车添加文本框
-    $("#text-input").on('keydown',function(e){
-        if(e.keyCode == 13){
+    $("#text-input").on('keydown', function (e) {
+        if (e.keyCode == 13) {
             addText($('#text-input').val());
             $('#text-input').val('');
         }
     });
-    $(document).on('focusout', '[contenteditable]', function () { saveMessages(); });
-});
-
-function refreshAvatarSelect() {
-    let new_scoll = $("#all-avatars-scroll-view").clone();
-    new_scoll.find("#avatar-display-item-template").remove();
-    new_scoll.find("*").removeAttr("id");
-    new_scoll.find(".avatar-icon").addClass("selectable-avatar-icon");
-    $.contextMenu.types.selectAvatar = function (item, opt, root) {
-        $("<strong>更换头像</strong>" + new_scoll.prop("outerHTML"))
-            .appendTo(this)
-            .on('click', '.selectable-avatar-icon', function () {
-                opt.$trigger.find(".avatar-icon").attr("src", $(this).prop("src"));
-                saveMessages();
-                root.$menu.trigger('contextmenu:hide');
-            });
-    };
-}
-$(document).ready(function () {
-    loadData();refreshAvatarSelect() ;
+    // 每次更改文本框或者事件框时保存
+    $(document).on('change', '[contenteditable]', function () { saveMessages(); });
     let publicItems = {
-        up: {
+        top: {
             icon: "fa-level-up",
+            name: "置顶",
+            callback: function (key, opt) {
+                opt.$trigger.parent().prepend(opt.$trigger);
+                saveMessages();
+            }
+        },
+        bottom: {
+            icon: "fa-level-down",
+            name: "置底",
+            callback: function (key, opt) {
+                opt.$trigger.parent().append(opt.$trigger);
+                saveMessages();
+            }
+        },
+        up: {
+            icon: "fa-chevron-up",
             name: "上移",
             callback: function (key, opt) {
                 opt.$trigger.prev().before(opt.$trigger);
@@ -139,7 +139,7 @@ $(document).ready(function () {
         },
         down:
         {
-            icon: "fa-level-down",
+            icon: "fa-chevron-down",
             name: "下移",
             callback: function (key, opt) {
                 opt.$trigger.next().after(opt.$trigger);
@@ -167,7 +167,7 @@ $(document).ready(function () {
         "sep1": "---------"
     };
     let avatarItems = {
-        changeAvatar:{type:"selectAvatar"}
+        changeAvatar: { type: "selectAvatar" }
     }
     let retweetItems = {
         changeSide: {
@@ -211,12 +211,12 @@ $(document).ready(function () {
                 saveMessages();
             }
         }
-    }); 
-    let  imageItems = Object.assign({}, Object.assign({}, publicItems, retweetItems), avatarItems);
+    });
+    let imageItems = Object.assign({}, Object.assign({}, publicItems, retweetItems), avatarItems);
     $.contextMenu({
         selector: ".image-block",
         zIndex: 100,
-        items : imageItems
+        items: imageItems
     });
     $.contextMenu({
         selector: ".text-block",
@@ -242,3 +242,19 @@ $(document).ready(function () {
         }
     });
 });
+
+function refreshAvatarSelect() {
+    let new_scoll = $("#all-avatars-scroll-view").clone();
+    new_scoll.find("#avatar-display-item-template").remove();
+    new_scoll.find("*").removeAttr("id");
+    new_scoll.find(".avatar-icon").addClass("selectable-avatar-icon");
+    $.contextMenu.types.selectAvatar = function (item, opt, root) {
+        $("<strong>更换头像</strong>" + new_scoll.prop("outerHTML"))
+            .appendTo(this)
+            .on('click', '.selectable-avatar-icon', function () {
+                opt.$trigger.find(".avatar-icon").attr("src", $(this).prop("src"));
+                saveMessages();
+                root.$menu.trigger('contextmenu:hide');
+            });
+    };
+}

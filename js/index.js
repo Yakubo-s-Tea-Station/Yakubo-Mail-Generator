@@ -1,6 +1,5 @@
 document.write("<script language=javascript src='js/messages-control.js'></script>");
 document.write("<script language=javascript src='js/global-status.js'></script>");
-
 function closeHelp(close) {
     let links = document.querySelectorAll("#close-help-menu a");
     if (close) {
