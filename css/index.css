@@ -31,10 +31,13 @@ body {
 #main-view *{
   white-space: normal;
 }
+#functions-bar{
+  width: 448px;
+}
 /* 抬头内容 */
 #control {
-  margin: auto;
   position: relative;
+  margin: auto;
   width: 400px;
   border: none;
   padding-bottom: 20px;

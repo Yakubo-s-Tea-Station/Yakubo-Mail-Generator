@@ -1,3 +1,6 @@
+#control-panel > * {
+  width: 100%;
+}
 #text-input {
   border-bottom-left-radius: 0;
 }
@@ -25,9 +28,9 @@
   width: 50px;
 }
 .avatar-display-item:hover {
-    filter:alpha(opacity=60);
-    -moz-opacity:0.6;
-    opacity: 0.6;
+  filter: alpha(opacity=60);
+  -moz-opacity: 0.6;
+  opacity: 0.6;
 }
 .avatar-display-item > img.avatar-icon {
   top: 0;
@@ -58,10 +61,4 @@
 }
 #all-avatars-common {
   white-space: nowrap;
-}
-
-#output-image {
-  width: 100%;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
 }

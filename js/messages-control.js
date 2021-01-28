@@ -109,10 +109,13 @@ $(function () {
         }
     });
     // 中键删除basic-block
-    $(document).on("mousedown",".basic-block",(e)=>{
-        if(e.button==1){
+    $(document).on("mousedown", ".basic-block", (e) => {
+        if (e.button == 1) {
             e.preventDefault();
-            $(e.target).remove();
+            if ($(e.target).hasClass("basic-block"))
+                $(e.target).remove();
+            else
+                $(e.target).parents(".basic-block").remove();
             saveMessages();
         }
     });
@@ -248,5 +251,5 @@ $(function () {
             }
         }
     });
-    
+
 });
