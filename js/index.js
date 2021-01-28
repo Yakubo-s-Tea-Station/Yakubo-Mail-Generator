@@ -34,7 +34,7 @@ $(() => {
         } else {
             $("#help-menu").addClass("d-none");
         }
-        $("#close-help-menu a").text((isClosed ? "展开" : "收起") + "说明");
+        $("#close-help-menu a").text((isClosed ? "收起" : "展开") + "说明");
     });
     $.ajax({
         type: "GET",
