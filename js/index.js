@@ -1,34 +1,11 @@
 document.write("<script language=javascript src='js/avatars.js'></script>");
 document.write("<script language=javascript src='js/messages-control.js'></script>");
 document.write("<script language=javascript src='js/global-status.js'></script>");
-function closeHelp(close) {
-    let links = document.querySelectorAll("#close-help-menu a");
-    if (close) {
-        document.getElementById("help-menu").classList.add("disabled");
-        links[0].classList.add("disabled");
-        links[1].classList.remove("disabled");
-    } else {
-        document.getElementById("help-menu").classList.remove("disabled");
-        links[0].classList.remove("disabled");
-        links[1].classList.add("disabled");
-    }
 
-    state.helpMenu = !close;
-    state.checkedVersion = getNameVersion();
-    saveLocalState();
-}
-
-function hideCloseHelp(elem) {
-    // closeHelp(true);
-    document.getElementById("control").classList.add("disabled")
-    document.getElementById("save-button").remove();
-    document.querySelector("#save-button img").remove();
-}
 function saveImage() {
     $("body").addClass("body-lock");
     document.body.scrollIntoView();
     let htmlDom = document.querySelector('#messages-canvas');
-    // let htmlDom = document.querySelector('#test');
     html2canvas(htmlDom, {
         allowTaint: false,
         taintTest: true,
@@ -37,14 +14,28 @@ function saveImage() {
         scale: 2
     }).then(function (canvas) {
         var link = document.createElement("a");
-        link.href = canvas.toDataURL('image/jpg');
-        link.download = 'screenshot.jpg';
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'screenshot.png';
         link.click();
     });
     $("body").removeClass("body-lock");
 }
 
-$(()=>{
+function saveProjectFile() {
+
+}
+
+$(() => {
+    // 说明.公告面板
+    $("#close-help-menu a").on("click", function () {
+        isClosed = $("#help-menu").hasClass("d-none");
+        if (isClosed) {
+            $("#help-menu").removeClass("d-none");
+        } else {
+            $("#help-menu").addClass("d-none");
+        }
+        $("#close-help-menu a").text((isClosed ? "展开" : "收起") + "说明");
+    });
     $.ajax({
         type: "GET",
         url: "notifacations.html",
@@ -61,4 +52,6 @@ $(()=>{
             $("#manuals-contents").html(response);
         }
     });
+
+    loadData();
 });

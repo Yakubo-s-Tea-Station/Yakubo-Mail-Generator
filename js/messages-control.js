@@ -43,8 +43,6 @@ function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = tru
 }
 
 $(function () {
-    loadData();
-    
     $(document).on("load", "img", function (event) {
         event.target.setAttribute("data-loaded", "true");
     });
@@ -110,8 +108,17 @@ $(function () {
             $('#text-input').val('');
         }
     });
+    // 中键删除basic-block
+    $(document).on("mousedown",".basic-block",(e)=>{
+        if(e.button==1){
+            e.preventDefault();
+            $(e.target).remove();
+            saveMessages();
+        }
+    });
     // 每次更改文本框或者事件框时保存
     $(document).on('change', '[contenteditable]', function () { saveMessages(); });
+
     let publicItems = {
         top: {
             icon: "fa-level-up",

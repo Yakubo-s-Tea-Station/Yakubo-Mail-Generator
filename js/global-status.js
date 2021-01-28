@@ -62,9 +62,9 @@ function loadMessages(dict) {
         }
     }
 }
-function saveMessages() {
+function getProjectInfos() {
     let new_messages = [];
-    $("#messages-body > div").each(function () {
+    $("#messages-body > div.basic-block").each(function () {
         if ($(this).hasClass("time-block")) {
             new_messages.push({
                 type: "datetime",
@@ -92,9 +92,11 @@ function saveMessages() {
             });
         }
     });
+    return JSON.stringify(new_messages);
+}
+function saveMessages() {
     if (window.localStorage) {
-        window.localStorage.setItem("messages", JSON.stringify(new_messages));
+        window.localStorage.setItem("messages", getProjectInfos());
         refreshLocalStorageInfo();
-        //console.log(window.localStorage.getItem("messages"));
     }
 }

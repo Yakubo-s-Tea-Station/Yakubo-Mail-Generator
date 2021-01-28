@@ -14,16 +14,22 @@
 body {
   height: 100%;
   width: 100%;
+  background-color: #5c00ff50;
 }
 .body-lock {
   overflow-x: hidden;
   overflow-y: hidden;
 }
 #main-view {
-  width: var(--messages-canvas-width);
+  white-space: nowrap;
+  width: 896px;
+  height: 100%;
   margin-right: auto;
   margin-left: auto;
   background-color: #b3b3b348;
+}
+#main-view *{
+  white-space: normal;
 }
 /* 抬头内容 */
 #control {
@@ -31,7 +37,6 @@ body {
   position: relative;
   width: 400px;
   border: none;
-  padding-top: 20px;
   padding-bottom: 30px;
   font-family: "Noto Sans SC", sans-serif;
   font-size: 14px;
@@ -56,7 +61,7 @@ body {
   display: none;
 }
 /* 总背景框 */
-.messages-canvas {
+#messages-canvas {
   z-index: 0;
   position: relative;
   width: var(--messages-canvas-width);
@@ -124,7 +129,7 @@ body {
   position: relative;
   font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑,
     STHeiti, MingLiu;
-    min-width: 16px;
+  min-width: 16px;
 }
 *[contenteditable]:hover {
   background-color: rgba(255, 255, 255, 0.356);

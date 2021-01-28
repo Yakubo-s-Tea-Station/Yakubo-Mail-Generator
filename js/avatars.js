@@ -71,7 +71,7 @@ $(() => {
                 callback:
                     function (key, opt) {
                         let md5 = opt.$trigger.find(".avatar-icon").attr("md5");
-                        $(".all-avatars .avatar-icon[md5='"+md5+"']").parent().remove();
+                        $(".all-avatars .avatar-icon[md5='" + md5 + "']").parent().remove();
                         saveAvatars();
                     }
             }
