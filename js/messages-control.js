@@ -59,6 +59,7 @@ function changeFooter(url) {
     var reader = new FileReader();
     reader.addEventListener("load", function (event) {
         $(".messages-footer").attr("src", event.target.result);
+        $(".messages-footer-placeholder").attr("src", event.target.result);
     });
     reader.readAsDataURL(url);
 }
@@ -67,6 +68,7 @@ function loadFromFormat(format) {
     $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
     $("#messages-canvas").css("background-image", "url(../image" + format + "/Background-Default.png)");
     $(".messages-footer").attr("src", "image/" + format + "/Footer-Default.png");
+    $(".messages-footer-placeholder").attr("src", "image/" + format + "/Footer-Default.png");
 }
 function getBase64Image(url, ref) {
     let image = new Image();
