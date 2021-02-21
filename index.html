@@ -93,11 +93,11 @@
 
                 <div class="btn-group-vertical" style="width: 100%;">
                     <button type="button" class="btn btn-outline-secondary"
-                        onclick="$('#banner-file-input').click()">选择题头图片</button>
+                        onclick="$('#banner-file-input').click();">选择题头图片</button>
                     <button type="button" class="btn btn-outline-secondary"
-                        onclick="$('#background-file-input').click()">选择背景图片</button>
+                        onclick="$('#background-file-input').click();">选择背景图片</button>
                     <button type="button" class="btn btn-outline-secondary"
-                        onclick="$('#footer-file-input').click()">选择落款图片</button>
+                        onclick="$('#footer-file-input').click();">选择落款图片</button>
                 </div>
 
                 <div>
@@ -169,16 +169,16 @@
             </span>
         </div>
         <input id="temp-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="appendImageFromFile(this.files[0]);">
+            onchange="appendImageFromFile(this.files[0]);this.value='';">
         <input id="temp-avatar-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="importAvatarFile(this.files[0]);">
+            onchange="importAvatarFile(this.files[0]);this.value='';">
 
         <input id="banner-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="changeBanner(this.files[0]);">
+            onchange="changeBanner(this.files[0]);this.value='';">
         <input id="background-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="changeBackground(this.files[0]);">
+            onchange="changeBackground(this.files[0]);this.value='';">
         <input id="footer-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="changeFooter(this.files[0]);">
+            onchange="changeFooter(this.files[0]);this.value='';">
     </div>
 </body>
 

@@ -64,29 +64,35 @@ function changeFooter(url) {
     reader.readAsDataURL(url);
 }
 function loadFromFormat(format) {
-
-    $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
-    $("#messages-canvas").css("background-image", "url(../image" + format + "/Background-Default.png)");
-    $(".messages-footer").attr("src", "image/" + format + "/Footer-Default.png");
-    $(".messages-footer-placeholder").attr("src", "image/" + format + "/Footer-Default.png");
-}
-function getBase64Image(url, ref) {
-    let image = new Image();
-    image.src = url;
-    image.crossOrigin = '*';
-    image.onload = function () {
-        var base64 = this.drawBase64Image(image)
-        this.$refs[ref].src = base64
+    warningInfo = "";
+    if (!IsFileExists("image/" + format + "/Header-Default.png"))
+        warningInfo += "题头图片Header-Default.png不存在！<br>";
+    else
+        $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
+    if (!IsFileExists("image/" + format + "/Background-Default.png"))
+        warningInfo += "背景图片Background-Default.png不存在！<br>";
+    else
+        $("#messages-canvas").css("background-image", "url(../image" + format + "/Background-Default.png)");
+    if (!IsFileExists("image/" + format + "/Background-Default.png"))
+        warningInfo += "落款图片Footer-Default.png不存在！<br>";
+    else {
+        $(".messages-footer").attr("src", "image/" + format + "/Footer-Default.png");
+        $(".messages-footer-placeholder").attr("src", "image/" + format + "/Footer-Default.png");
     }
 }
-function drawBase64Image(img) {
-    let canvas = document.createElement('canvas')
-    canvas.width = img.width
-    canvas.height = img.height
-    let ctx = canvas.getContext('2d')
-    ctx.drawImage(img, 0, 0, img.width, img.height)
-    let dataURL = canvas.toDataURL('image/png')
-    return dataURL
+function IsFileExists(filepath) {
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("GET", filepath, false);
+    xmlhttp.send();
+    if (xmlhttp.readyState == 4) {
+        if (xmlhttp.status == 200) return true; //url存在
+        else return false;//其他状态 
+    }
 }
 $(function () {
     $(document).on("load", "img", function (event) {
