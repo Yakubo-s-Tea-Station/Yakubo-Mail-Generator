@@ -25,6 +25,7 @@ function saveProjectFile() {
 
 }
 
+
 $(() => {
     // 说明.公告面板
     $("#close-help-menu a").on("click", function () {
@@ -35,6 +36,9 @@ $(() => {
             $("#help-menu").addClass("d-none");
         }
         $("#close-help-menu a").text((isClosed ? "收起" : "展开") + "说明");
+    });
+    $("#right-bottom-logo").click(()=>{
+        alert("123");
     });
     $.ajax({
         type: "GET",
@@ -52,6 +56,5 @@ $(() => {
             $("#manuals-contents").html(response);
         }
     });
-
     loadData();
 });

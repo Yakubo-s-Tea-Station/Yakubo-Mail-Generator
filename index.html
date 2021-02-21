@@ -33,12 +33,12 @@
     <div id="main-view">
         <div id="functions-bar" class="d-inline-block px-4 py-4">
             <div id="control">
-                <h4>半自动奶精兑水机 <small>V.Alpha</small></h4>
+                <h4>半自动奶精兑水机 <small>V0.0.1</small></h4>
                 <p class="text-right mb-1"><small><i class="fab fa-github-square fa-lg"></i> <a
                             href="https://github.com/Yakubo-s-Tea-Station/Yakubo-Mail-Generator">本项目</a> 创意源于 <i
                             class="fab fa-github-square fa-lg"></i> <a
                             href="https://github.com/shoushouminami/LaiLaiMail">LaiLaiMail</a></small></p>
-                <div id="help-menu" class="text-left pl-3">
+                <div id="help-menu" class="text-left pl-3 d-none">
                     <h5 id="manuals-title">使用说明</h5>
                     <ul id="manuals-contents" class="px-4">
                     </ul>
@@ -48,41 +48,39 @@
                 </div>
                 <div id="close-help-menu">
                     <div>
-                        <a href="javascript:void(0);">收起说明</a>
+                        <a href="javascript:void(0);">展开说明</a>
                     </div>
                 </div>
             </div>
 
             <div id="control-panel">
-                <div id="messages-add-panel">
-                    <div class="input-group mt-3">
+                <div id="messages-add-panel" class="mt-3">
+                    <button id="add-avatar-file" class="btn btn-dark" type="submit"
+                        onclick="$('#temp-avatar-file-input').click()">添加头像文件(或拖入下方区域)</button>
+                    <div class="all-avatars-scroll-view">
+                        <div id="all-avatars-common" class="all-avatars">
+
+                        </div>
+                    </div>
+                    <div id="avatar-display-item-template" class="avatar-display-item d-none">
+                        <img class="avatar-icon selectable-avatar-icon">
+                    </div>
+                    <div class="input-group">
                         <input id="text-input" type="text" class="form-control" placeholder="输入..."
                             contenteditable="true">
                         <div class="input-group-append">
-                            <button id="text-button" class="btn btn-success" type="submit"
+                            <button id="text-button" class="btn btn-dark" type="submit"
                                 onclick="addText($('#text-input').val());$('#text-input').val('');">添加文字 <i
                                     class="fas fa-file-alt"></i></button>
                         </div>
                     </div>
                     <div class="btn-group mb-3">
-                        <button id="image-button" type="button" class="btn btn-primary align-items-center"
+                        <button id="image-button" type="button" class="btn btn-outline-dark align-items-center"
                             onclick="$('#temp-file-input').click()"><i class="fas fa-image fa-lg"></i> 添加图片</button>
-                        <button id="datetime-button" type="button" class="btn btn-warning"
+                        <button id="datetime-button" type="button" class="btn btn-outline-dark"
                             onclick="addDatetime(new Date().toLocaleString())"><i class="fas fa-calendar-alt fa-lg"></i>
                             添加日期</button>
                     </div>
-                </div>
-
-                <button id="add-avatar-file" class="btn btn-success" type="submit"
-                    onclick="$('#temp-avatar-file-input').click()">添加头像文件(或拖入下方区域) <i
-                        class="fas fa-file-alt"></i></button>
-                <div class="all-avatars-scroll-view">
-                    <div id="all-avatars-common" class="all-avatars">
-
-                    </div>
-                </div>
-                <div id="avatar-display-item-template" class="avatar-display-item d-none">
-                    <img class="avatar-icon selectable-avatar-icon">
                 </div>
 
                 <div class="btn-group mt-3 d-none">
@@ -93,39 +91,60 @@
                             class="fas fa-indent fa-lg"></i></button>
                 </div>
 
-                <button type="button" style="border-top: 0; border-top-left-radius: 0;border-top-right-radius: 0;"
-                    class="btn btn-outline-dark" onclick="saveImage()"><i class="fas fa-file-image-o fa-lg"></i>
-                    导出图片</button>
+                <div class="btn-group-vertical" style="width: 100%;">
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="$('#banner-file-input').click()">选择题头图片</button>
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="$('#background-file-input').click()">选择背景图片</button>
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="$('#footer-file-input').click()">选择落款图片</button>
+                </div>
 
-                <div class="btn-group-vertical mt-3 d-none" style="width: 100%;">
-                    <button type="button" class="btn btn-secondary" disabled>选择题头图片</button>
-                    <button type="button" class="btn btn-dark" disabled>选择背景图片</button>
-                    <button type="button" class="btn btn-secondary" disabled>选择落款图片</button>
+                <div>
+                    <div class="input-group mt-3">
+                        <input id="format-url-input" type="text" class="form-control" placeholder="模板名..."
+                            onchange="localStorage['format-name']=this.value;" contenteditable="true">
+                        <div class="input-group-append">
+                            <button id="format-url-button" class="btn btn-dark" type="submit"
+                                onclick="loadFromFormat(localStorage['format-name']);">从仓库载入模板</button>
+                        </div>
+                    </div>
+                    <button type="button"
+                        style="border-top: 0; border-top-left-radius: 0;border-top-right-radius: 0; width:100%;"
+                        class="btn btn-outline-dark" onclick="saveImage()">导出图片
+                    </button>
                 </div>
 
                 <div class="input-group mt-3">
                     <input id="local-storage-info" type="text" class="form-control" disabled="disabled">
                     <div class="input-group-append">
-                        <button id="clear-storage" class="btn btn-danger" type="submit"
-                            onclick="localStorage.clear();refreshLocalStorageInfo();">清理缓存空间 <i
-                                class="fas fa-file-alt"></i></button>
+                        <button id="clear-storage" class="btn btn-outline-danger" type="submit"
+                            onclick="localStorage['messages']=undefined;$('#warning-text-messages').removeClass('d-none') ;refreshLocalStorageInfo();">清除消息内容
+                        </button>
                     </div>
                 </div>
+                <p id="warning-text-messages" class="m-auto d-none" style="font-size: 14px; color:red;">工程信息缓存已清空，刷新后所有消息都将消失！</p>
+                <p class="m-auto d-none" style="color:red;">缓存已清空，刷新后将完全初始化！</p>
             </div>
 
         </div>
 
         <div id="messages-canvas-container" class="d-inline-block align-top">
             <div id="messages-canvas">
-                <img class="messages-header" crossorigin="anonymous" src="image/Header-Default.png">
+                <img class="messages-header" crossorigin="anonymous" src="image/Yakubo Mio/Header-Default.png">
                 <div id="messages-body">
-    
+
                 </div>
-                <img class="messages-footer" crossorigin="anonymous" src="image/Footer-Default.png">
-                <img class="messages-footer-placeholder" crossorigin="anonymous" src="image/Footer-Default.png">
+                <img class="messages-footer" crossorigin="anonymous" src="image/Yakubo Mio/Footer-Default.png">
+                <img class="messages-footer-placeholder" crossorigin="anonymous"
+                    src="image/Yakubo Mio/Footer-Default.png">
             </div>
         </div>
-        
+
+        <footer>
+            <div>喜欢这个项目吗？来 <a href="https://github.com/D-Walter/Yakubo-Mail-Generator/"><i
+                        class="fab fa-github"></i>Github</a> 支持一下我吧！QQ群：1028994824，加入美绪的奶茶店！</div>
+        </footer>
 
         <div id="text-block-template" class="basic-block text-block avatar-block d-none">
             <span class="square">
@@ -151,16 +170,13 @@
         <input id="temp-avatar-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
             onchange="importAvatarFile(this.files[0]);">
 
-        <input id="header-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="importAvatarFile(this.files[0]);">
+        <input id="banner-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
+            onchange="changeBanner(this.files[0]);">
         <input id="background-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="importAvatarFile(this.files[0]);">
+            onchange="changeBackground(this.files[0]);">
         <input id="footer-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="importAvatarFile(this.files[0]);">
+            onchange="changeFooter(this.files[0]);">
     </div>
-    <footer>
-
-    </footer>
 </body>
 
 </html>

@@ -5,47 +5,75 @@
   --text-block-fontcolor: black;
   --time-badge-bgcolor: #ffa9da;
   --time-badge-fontcolor: black;
-  --background-img: url("../image/Background-Default.png");
 }
 * {
   margin: 0px;
   padding: 0px;
   border: 0px;
 }
-html{
+html {
   overflow: hidden;
   max-height: 100vh;
-  background-image: url("../image/Logo.png");
   background-size: 18%;
   background-repeat: no-repeat;
   background-position: center;
 }
 body {
   background-color: #5d00ff50;
+  background-image: url("../image/Nogizaka-Logo.png"),
+    url("../image/Mio-Logo.png");
+  background-repeat: no-repeat;
+  background-size: 20vw, 5vw;
+  background-position: center, right 5px bottom 5px;
 }
 .body-lock {
   overflow-x: hidden;
   overflow-y: hidden;
 }
 #main-view {
+  position: relative;
   white-space: nowrap;
   width: 896px;
   height: 100vh;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-right: auto;
   margin-left: auto;
   background-color: #b3b3b3af;
+  box-shadow: 0px 0px 15px 0px #b664a1;
 }
-#main-view *{
+#main-view * {
   white-space: normal;
 }
-#functions-bar{
+#functions-bar {
   width: 448px;
-  max-height: 100%;
-  overflow-y:scroll;
-  scrollbar-width: 0;
+  max-height: calc(100% - 43px);
+  overflow-y: scroll;
+  scrollbar-width: 10px;
 }
-#functions-bar::-webkit-scrollbar{
-  width: 0;
+#functions-bar::-webkit-scrollbar {
+  width: 10px;
+}
+#main-view > footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 43px;
+  background-color: #5d00ff45;
+  background-image: url(../image/Footer-Background.png);
+  background-repeat: repeat;
+  background-size: 10%;
+}
+#main-view > footer div {
+  position: absolute;
+  font-size: 100%;
+  font-weight: bold;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+  text-shadow: 0 0 6px #b664a1;
+  color: #3b002e85;
 }
 /* 抬头内容 */
 #control {
@@ -62,7 +90,7 @@ body {
 #close-help-menu {
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: 0px;
 }
 
 #close-help-menu > div {
@@ -83,16 +111,16 @@ body {
   width: var(--messages-canvas-width);
   margin: auto;
   border: none;
-  background-image: var(--background-img);
+  background-image: url("../image/Yakubo Mio/Background-Default.png");
   background-size: 100%;
   background-repeat: repeat;
 }
-#messages-canvas-container{
+#messages-canvas-container {
   overflow: auto;
-  max-height: 100%;
+  max-height: calc(100% - 43px);
   scrollbar-width: 0;
 }
-#messages-canvas-container::-webkit-scrollbar{
+#messages-canvas-container::-webkit-scrollbar {
   width: 0;
 }
 #messages-body {

@@ -41,7 +41,51 @@ function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = tru
     $("#messages-body").append(new_block);
     if (save) saveMessages();
 }
+function changeBanner(url) {
+    var reader = new FileReader();
+    reader.addEventListener("load", function (event) {
+        $(".messages-header").attr("src", event.target.result);
+    });
+    reader.readAsDataURL(url);
+}
+function changeBackground(url) {
+    var reader = new FileReader();
+    reader.addEventListener("load", function (event) {
+        $("#messages-canvas").css("background-image", "url(" + event.target.result + ")");
+    });
+    reader.readAsDataURL(url);
+}
+function changeFooter(url) {
+    var reader = new FileReader();
+    reader.addEventListener("load", function (event) {
+        $(".messages-footer").attr("src", event.target.result);
+    });
+    reader.readAsDataURL(url);
+}
+function loadFromFormat(format) {
 
+    $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
+    $("#messages-canvas").css("background-image", "url(../image" + format + "/Background-Default.png)");
+    $(".messages-footer").attr("src", "image/" + format + "/Footer-Default.png");
+}
+function getBase64Image(url, ref) {
+    let image = new Image();
+    image.src = url;
+    image.crossOrigin = '*';
+    image.onload = function () {
+        var base64 = this.drawBase64Image(image)
+        this.$refs[ref].src = base64
+    }
+}
+function drawBase64Image(img) {
+    let canvas = document.createElement('canvas')
+    canvas.width = img.width
+    canvas.height = img.height
+    let ctx = canvas.getContext('2d')
+    ctx.drawImage(img, 0, 0, img.width, img.height)
+    let dataURL = canvas.toDataURL('image/png')
+    return dataURL
+}
 $(function () {
     $(document).on("load", "img", function (event) {
         event.target.setAttribute("data-loaded", "true");
