@@ -1,186 +1,382 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
-    <title> 半自动奶精兑水机 </title>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/jquery-contextmenu/dist/jquery.contextMenu.min.css">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="./fontawesome-free-5.15.2-web/css/all.min.css">
-    <link type="text/css" rel="stylesheet" href="./css/control-panel.css">
-    <link type="text/css" rel="stylesheet" href="./css/index.css">
-    <link type="text/css" rel="stylesheet" href="./css/control-panel.css">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>半自动奶精兑水机</title>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/jquery-contextmenu/dist/jquery.contextMenu.min.css"
+    />
+    <link
+      href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="./fontawesome-free-5.15.2-web/css/all.min.css"
+    />
+    <link type="text/css" rel="stylesheet" href="./css/control-panel.css" />
+    <link type="text/css" rel="stylesheet" href="./css/index.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="./css/index-floating-buttons.css"
+    />
+    <link type="text/css" rel="stylesheet" href="./css/control-panel.css" />
     <script src="https://cdn.jsdelivr.net/npm/blueimp-md5/js/md5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-contextmenu/dist/jquery.contextMenu.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-contextmenu/dist/jquery.ui.position.js"></script>
-    <script src="js/TDrag.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/html2canvas.js"></script>
     <script src="js/index.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="main-view">
-        <div id="functions-bar" class="d-inline-block px-4 py-4">
-            <div id="control">
-                <h4>半自动奶精兑水机 <small>V0.0.1</small></h4>
-                <p class="text-right mb-1"><small><i class="fab fa-github-square fa-lg"></i> <a
-                            href="https://github.com/Yakubo-s-Tea-Station/Yakubo-Mail-Generator">本项目</a> 创意源于 <i
-                            class="fab fa-github-square fa-lg"></i> <a
-                            href="https://github.com/shoushouminami/LaiLaiMail">LaiLaiMail</a></small></p>
-                <div id="help-menu" class="text-left pl-3 d-none">
-                    <h5 id="manuals-title">使用说明</h5>
-                    <ul id="manuals-contents" class="px-4">
-                    </ul>
-                    <h5 id="notification-title">开发公告</h5>
-                    <ul id="notification-contents" class="px-4">
-                    </ul>
-                </div>
-                <div id="close-help-menu">
-                    <div>
-                        <a href="javascript:void(0);">展开说明</a>
-                    </div>
-                </div>
+      <div id="left-fbg" class="floating-button-groups">
+        <div fbg-name="manuals" class="floating-button">
+          <i class="far fa-question-circle"></i>
+        </div>
+        <div fbg-name="update-logs" class="floating-button">
+          <i class="fas fa-angle-double-up"></i>
+        </div>
+      </div>
+      <div id="right-fbg" class="floating-button-groups">
+        <div id="daily-messages" class="floating-button">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+      </div>
+      <div id="manuals-panel" class="floating-panel d-none">
+        <div class="floating-panel-close-button">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <h5 id="manuals-title" class="floating-panel-contents">
+          <b>使用说明</b>
+        </h5>
+        <div class="floating-panel-contents">
+          <ul id="manuals-contents" class="mx-4"></ul>
+        </div>
+      </div>
+      <div id="update-logs-panel" class="floating-panel d-none">
+        <div class="floating-panel-close-button">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <h5 id="notification-title" class="floating-panel-contents">
+          <b>开发公告</b>
+        </h5>
+        <div class="floating-panel-contents">
+          <ul id="notification-contents" class="mx-4"></ul>
+        </div>
+      </div>
+
+      <div id="functions-bar" class="d-inline-block px-4 py-4">
+        <div id="control">
+          <h4>半自动奶精兑水机 <small>V0.0.1</small></h4>
+          <p class="text-right mb-1">
+            <small>
+              <i class="fab fa-github-square fa-lg"></i>
+              <a
+                href="https://github.com/Yakubo-s-Tea-Station/Yakubo-Mail-Generator"
+              >
+                本项目</a
+              >
+              创意源于 <i class="fab fa-github-square fa-lg"></i>
+              <a href="https://github.com/shoushouminami/LaiLaiMail"
+                >LaiLaiMail</a
+              >
+            </small>
+          </p>
+        </div>
+
+        <div id="control-panel">
+          <div id="messages-add-panel" class="mt-3">
+            <button
+              id="add-avatar-file"
+              class="btn btn-dark"
+              type="submit"
+              onclick="$('#temp-avatar-file-input').click()"
+            >
+              添加头像文件(或拖入下方区域)
+            </button>
+            <div class="all-avatars-scroll-view">
+              <div id="all-avatars-common" class="all-avatars"></div>
             </div>
-
-            <div id="control-panel">
-                <div id="messages-add-panel" class="mt-3">
-                    <button id="add-avatar-file" class="btn btn-dark" type="submit"
-                        onclick="$('#temp-avatar-file-input').click()">添加头像文件(或拖入下方区域)</button>
-                    <div class="all-avatars-scroll-view">
-                        <div id="all-avatars-common" class="all-avatars">
-
-                        </div>
-                    </div>
-                    <div id="avatar-display-item-template" class="avatar-display-item d-none">
-                        <img class="avatar-icon selectable-avatar-icon">
-                    </div>
-                    <div class="input-group">
-                        <input id="text-input" type="text" class="form-control" placeholder="输入..."
-                            contenteditable="true">
-                        <div class="input-group-append">
-                            <button id="text-button" class="btn btn-dark" type="submit"
-                                onclick="addText($('#text-input').val());$('#text-input').val('');">添加文字 <i
-                                    class="fas fa-file-alt"></i></button>
-                        </div>
-                    </div>
-                    <div class="btn-group mb-3">
-                        <button id="image-button" type="button" class="btn btn-outline-dark align-items-center"
-                            onclick="$('#temp-file-input').click()"><i class="fas fa-image fa-lg"></i> 添加图片</button>
-                        <button id="datetime-button" type="button" class="btn btn-outline-dark"
-                            onclick="addDatetime(new Date().toLocaleString())"><i class="fas fa-calendar-alt fa-lg"></i>
-                            添加日期</button>
-                    </div>
-                </div>
-
-                <div class="btn-group mt-3 d-none">
-                    <button style="border-bottom-left-radius: 0;" type="button" class="btn btn-info" disabled><i
-                            class="fas fa-outdent fa-lg"></i>
-                        导入工程</button>
-                    <button style="border-bottom-right-radius: 0;" type="button" class="btn btn-info" disabled>导出工程 <i
-                            class="fas fa-indent fa-lg"></i></button>
-                </div>
-
-                <div>
-                    <div class="btn-group" style="width: 100%;">
-                        <button type="button" class="btn btn-outline-dark" style="border-bottom-left-radius: 0;"
-                            onclick="$('#banner-file-input').click();">选择题头图片</button>
-                        <button type="button" class="btn btn-outline-dark"
-                            onclick="$('#background-file-input').click();">选择背景图片</button>
-                        <button type="button" class="btn btn-outline-dark" style="border-bottom-right-radius: 0;"
-                            onclick="$('#footer-file-input').click();">选择落款图片</button>
-                    </div>
-                    <div class="input-group">
-                        <input id="format-url-input" type="text" class="form-control" placeholder="模板名..."
-                            style="border-color: black; border-top: 0; background-color: #FFFFFF60; border-top-left-radius: 0;"
-                            onchange="localStorage['format-name']=this.value;" contenteditable="true">
-                        <div class="input-group-append">
-                            <button id="format-url-button" class="btn btn-dark" type="submit"
-                                style="border-top-right-radius: 0;"
-                                onclick="loadFromFormat(localStorage['format-name']);">从仓库载入模板</button>
-                        </div>
-                    </div>
-                    <button type="button"
-                        style="border-top: 0; border-top-left-radius: 0;border-top-right-radius: 0; width:100%;"
-                        class="btn btn-outline-dark" onclick="saveImage()">导出图片
-                    </button>
-                </div>
-
-                <div class="input-group mt-3">
-                    <input id="local-storage-info" type="text" class="form-control" disabled="disabled">
-                    <div class="input-group-append">
-                        <button id="clear-storage" class="btn btn-outline-danger" type="submit"
-                            onclick="localStorage['messages']=undefined;$('#warning-text-messages').removeClass('d-none') ;refreshLocalStorageInfo();">清除消息内容
-                        </button>
-                    </div>
-                </div>
-                <p id="warning-text-messages" class="m-auto d-none" style="font-size: 14px; color:red;">
-                    工程信息缓存已清空，刷新后所有消息都将消失！</p>
-                <p class="m-auto d-none" style="color:red;">缓存已清空，刷新后将完全初始化！</p>
+            <div
+              id="avatar-display-item-template"
+              class="avatar-display-item d-none"
+            >
+              <img class="avatar-icon selectable-avatar-icon" />
             </div>
-
-        </div>
-
-        <div id="messages-canvas-container" class="d-inline-block align-top">
-            <div id="messages-canvas">
-                <img class="messages-header" crossorigin="anonymous" src="image/Yakubo Mio/Header-Default.png"
-                    onerror="this.src='image/Yakubo Mio/Header-Default.png';">
-                <div id="messages-body">
-
-                </div>
-                <img class="messages-footer" crossorigin="anonymous" src="image/Yakubo Mio/Footer-Default.png"
-                    onerror="this.src='image/Yakubo Mio/Footer-Default.png'">
-                <img class="messages-footer-placeholder" crossorigin="anonymous"
-                    src="image/Yakubo Mio/Footer-Default.png" onerror="this.src='image/Yakubo Mio/Footer-Default.png'">
+            <div class="input-group">
+              <input
+                id="text-input"
+                type="text"
+                class="form-control"
+                placeholder="输入..."
+                contenteditable="true"
+              />
+              <div class="input-group-append">
+                <button
+                  id="text-button"
+                  class="btn btn-dark"
+                  type="submit"
+                  onclick="addText($('#text-input').val());$('#text-input').val('');"
+                >
+                  添加文字 <i class="fas fa-file-alt"></i>
+                </button>
+              </div>
             </div>
-        </div>
+            <div class="btn-group mb-3">
+              <button
+                id="image-button"
+                type="button"
+                class="btn btn-outline-dark align-items-center"
+                onclick="$('#temp-file-input').click()"
+              >
+                <i class="fas fa-image fa-lg"></i> 添加图片
+              </button>
+              <button
+                id="datetime-button"
+                type="button"
+                class="btn btn-outline-dark"
+                onclick="addDatetime(new Date().toLocaleString())"
+              >
+                <i class="fas fa-calendar-alt fa-lg"></i> 添加日期
+              </button>
+            </div>
+          </div>
 
-        <footer>
-            <div>喜欢这个项目吗？来 <a href="https://github.com/D-Walter/Yakubo-Mail-Generator/"><i
-                        class="fab fa-github"></i>Github</a> 支持一下我吧！QQ群：1028994824，加入美绪的奶茶店！</div>
-        </footer>
+          <div class="btn-group mt-3 d-none">
+            <button
+              style="border-bottom-left-radius: 0"
+              type="button"
+              class="btn btn-info"
+              disabled
+            >
+              <i class="fas fa-outdent fa-lg"></i> 导入工程
+            </button>
+            <button
+              style="border-bottom-right-radius: 0"
+              type="button"
+              class="btn btn-info"
+              disabled
+            >
+              导出工程 <i class="fas fa-indent fa-lg"></i>
+            </button>
+          </div>
 
-        <div id="text-block-template" class="basic-block text-block avatar-block d-none">
-            <span class="square">
-                <div contenteditable="true"></div>
-            </span>
-            <div class="triangle"></div>
-            <img class="avatar-icon">
-        </div>
-        <div id="image-block-template" class="basic-block image-block d-none">
-            <span>
-                <img class="primary-img">
-                <img class="water-print">
-            </span>
-            <img class="avatar-icon">
-        </div>
-        <div id="time-block-template" class="basic-block time-block d-none">
-            <span>
-                <span contenteditable="true"></span>
-            </span>
-        </div>
-        <input id="temp-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="appendImageFromFile(this.files[0]);this.value='';">
-        <input id="temp-avatar-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="importAvatarFile(this.files[0]);this.value='';">
+          <div>
+            <div class="btn-group" style="width: 100%">
+              <button
+                type="button"
+                class="btn btn-outline-dark"
+                style="border-bottom-left-radius: 0"
+                onclick="$('#banner-file-input').click();"
+              >
+                选择题头图片
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark"
+                onclick="$('#background-file-input').click();"
+              >
+                选择背景图片
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark"
+                style="border-bottom-right-radius: 0"
+                onclick="$('#footer-file-input').click();"
+              >
+                选择落款图片
+              </button>
+            </div>
+            <div class="input-group">
+              <input
+                id="format-url-input"
+                type="text"
+                class="form-control"
+                placeholder="模板名..."
+                style="
+                  border-color: black;
+                  border-top: 0;
+                  background-color: #ffffff60;
+                  border-top-left-radius: 0;
+                "
+                onchange="localStorage['format-name']=this.value;"
+                contenteditable="true"
+              />
+              <div class="input-group-append">
+                <button
+                  id="format-url-button"
+                  class="btn btn-dark"
+                  type="submit"
+                  style="border-top-right-radius: 0"
+                  onclick="loadFromFormat(localStorage['format-name']);"
+                >
+                  从仓库载入模板
+                </button>
+              </div>
+            </div>
+            <button
+              type="button"
+              style="
+                border-top: 0;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                width: 100%;
+              "
+              class="btn btn-outline-dark"
+              onclick="saveImage()"
+            >
+              导出图片
+            </button>
+          </div>
 
-        <input id="banner-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="changeBanner(this.files[0]);this.value='';">
-        <input id="background-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="changeBackground(this.files[0]);this.value='';">
-        <input id="footer-file-input" class="d-none" type="file" accept="image/png, image/jpeg"
-            onchange="changeFooter(this.files[0]);this.value='';">
+          <div class="input-group mt-3">
+            <input
+              id="local-storage-info"
+              type="text"
+              class="form-control"
+              disabled="disabled"
+            />
+            <div class="input-group-append">
+              <button
+                id="clear-storage"
+                class="btn btn-outline-danger"
+                type="submit"
+                onclick="localStorage['messages']=undefined;$('#warning-text-messages').removeClass('d-none') ;refreshLocalStorageInfo();"
+              >
+                清除消息内容
+              </button>
+            </div>
+          </div>
+          <p
+            id="warning-text-messages"
+            class="m-auto d-none"
+            style="font-size: 14px; color: red"
+          >
+            工程信息缓存已清空，刷新后所有消息都将消失！
+          </p>
+          <p class="m-auto d-none" style="color: red">
+            缓存已清空，刷新后将完全初始化！
+          </p>
+        </div>
+      </div>
+
+      <div id="messages-canvas-container" class="d-inline-block align-top">
+        <div id="messages-canvas">
+          <img
+            class="messages-header"
+            crossorigin="anonymous"
+            src="image/Yakubo Mio/Header-Default.png"
+            onerror="this.src='image/Yakubo Mio/Header-Default.png';"
+          />
+          <div id="messages-body"></div>
+          <img
+            class="messages-footer"
+            crossorigin="anonymous"
+            src="image/Yakubo Mio/Footer-Default.png"
+            onerror="this.src='image/Yakubo Mio/Footer-Default.png'"
+          />
+          <img
+            class="messages-footer-placeholder"
+            crossorigin="anonymous"
+            src="image/Yakubo Mio/Footer-Default.png"
+            onerror="this.src='image/Yakubo Mio/Footer-Default.png'"
+          />
+        </div>
+      </div>
+
+      <footer>
+        <div>
+          喜欢这个项目吗？来
+          <a href="https://github.com/D-Walter/Yakubo-Mail-Generator/"
+            ><i class="fab fa-github"></i>Github</a
+          >
+          支持一下我吧！QQ群：1028994824，加入美绪的奶茶店！
+        </div>
+      </footer>
+
+      <div
+        id="text-block-template"
+        class="basic-block text-block avatar-block d-none"
+      >
+        <span class="square">
+          <div contenteditable="true"></div>
+        </span>
+        <div class="triangle"></div>
+        <img class="avatar-icon" />
+      </div>
+      <div id="image-block-template" class="basic-block image-block d-none">
+        <span>
+          <img class="primary-img" />
+          <img class="water-print" />
+        </span>
+        <img class="avatar-icon" />
+      </div>
+      <div id="time-block-template" class="basic-block time-block d-none">
+        <span>
+          <span contenteditable="true"></span>
+        </span>
+      </div>
+      <input
+        id="temp-file-input"
+        class="d-none"
+        type="file"
+        accept="image/png, image/jpeg"
+        onchange="appendImageFromFile(this.files[0]);this.value='';"
+      />
+      <input
+        id="temp-avatar-file-input"
+        class="d-none"
+        type="file"
+        accept="image/png, image/jpeg"
+        onchange="importAvatarFile(this.files[0]);this.value='';"
+      />
+
+      <input
+        id="banner-file-input"
+        class="d-none"
+        type="file"
+        accept="image/png, image/jpeg"
+        onchange="changeBanner(this.files[0]);this.value='';"
+      />
+      <input
+        id="background-file-input"
+        class="d-none"
+        type="file"
+        accept="image/png, image/jpeg"
+        onchange="changeBackground(this.files[0]);this.value='';"
+      />
+      <input
+        id="footer-file-input"
+        class="d-none"
+        type="file"
+        accept="image/png, image/jpeg"
+        onchange="changeFooter(this.files[0]);this.value='';"
+      />
     </div>
-</body>
-
+  </body>
 </html>

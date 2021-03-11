@@ -24,22 +24,25 @@ function saveImage() {
 function saveProjectFile() {
 
 }
-
+function activateFloatingPanel(name){
+    closeFloatingPanel();
+    $("#"+name+"-panel").removeClass("d-none");
+}
+function closeFloatingPanel(){
+    $(".floating-panel:not(.d-none)").addClass("d-none");
+    $(".floating-button").removeClass("floating-button-activated");
+}
 
 $(() => {
+    // 两侧按钮
+    $(document).on("click", ".floating-button", (e) => {
+        activateFloatingPanel($(e.target).attr("fbg-name"));
+        $(e.target).addClass("floating-button-activated");
+    });
+    $(document).on("click", ".floating-panel-close-button", (e) => {
+        closeFloatingPanel();
+    });
     // 说明.公告面板
-    $("#close-help-menu a").on("click", function () {
-        isClosed = $("#help-menu").hasClass("d-none");
-        if (isClosed) {
-            $("#help-menu").removeClass("d-none");
-        } else {
-            $("#help-menu").addClass("d-none");
-        }
-        $("#close-help-menu a").text((isClosed ? "收起" : "展开") + "说明");
-    });
-    $("#right-bottom-logo").click(()=>{
-        alert("123");
-    });
     $.ajax({
         type: "GET",
         url: "notifacations.html",
