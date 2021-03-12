@@ -20,13 +20,25 @@
 .floating-button > * {
   pointer-events: none;
 }
-.floating-button:hover {
+.floating-button:not(.floating-button-activated):hover {
   background-color: #773183f6;
   box-shadow: #f08383 0px 0px 6px inset, #000000 0px 0px 24px;
 }
 .floating-button-activated {
   background-color: #c774d6f6;
   box-shadow: #ffffff 0px 0px 6px inset, #000000 0px 0px 12px;
+}
+
+.new-info-point{
+  position: absolute;
+  z-index: 10000;
+  left: -3.8rem;
+  font-size: 0.8px;
+  height: 1.2rem;
+  width: 4rem;
+  border-radius: 0.6rem;
+  background-color: red;
+  box-shadow: red 0px 0px 6px;
 }
 
 .floating-button-groups {
@@ -53,6 +65,12 @@
   border-radius: 1rem;
   border: 1rem double #7c426e1f;
 }
+.floating-panel>*:not(.floating-panel-close-button){
+  background-color: #ffffff30;
+  padding:1rem;
+  margin: 0;
+
+}
 
 .floating-panel-close-button {
   position: absolute;
@@ -64,10 +82,4 @@
 }
 .floating-panel-close-button > i:hover {
   color: #ffffff;
-}
-
-.floating-panel-contents{
-  background-color: #ffffff30;
-  padding:1rem;
-  margin: 0;
 }
