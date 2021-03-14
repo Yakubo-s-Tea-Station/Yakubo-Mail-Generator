@@ -9,3 +9,18 @@
 1. 本生成器挂载于Gitee Page，[点此访问](http://yakubo-s-tea-station.gitee.io/mail-generator/)。
 
 2. 
+
+## 工程文件格式定义
+
+工程文件是用于保存当前工作状态的文件，工程文件由三部分组成
+
+### 1. 额外信息
+信息头用于存储该工程对应的Mail图的额外信息，额外信息以`%PROJECT_A%`标记作为起始检查点，以json字符串进行存储
+#### a. Date
+该工程对应的Mail日期，应该以"YYYY-MM-DD"格式存储
+
+### 2. 资源信息
+资源信息用于存储模板名、图片等信息，但是不包括Mail图中消息框内的图片。资源信息以`$PROJECT_R%`标记作为起始检查点，以json字符串进行存储
+#### a. Format Name
+#### b. Format Images
+#### c. Avatar Images

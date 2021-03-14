@@ -1,3 +1,6 @@
+var current_format = "Yakubo Mio"
+var current_left_avatar = "image/Yakubo Mio/Avatar-Default.png"
+var current_right_avatar = "image/Yakubo Mio/Avatar-Secondary-Default.png"
 function loadData() {
     if (!window.localStorage) {
         alert("您的浏览器不支持Local Storage特性，这意味着您无法自动保存会话状态")
@@ -12,17 +15,6 @@ function loadData() {
         let tfn = window.localStorage.getItem("format-name");
         if (tfn) $("#format-url-input").val(tfn);
 
-        let messages = window.localStorage.getItem("messages");
-        if (messages)
-            try {
-                messages = JSON.parse(messages);
-            } catch (error) {
-                messages = undefined;
-            }
-        if (!messages)
-            messages = [];
-        loadMessages(messages);
-
         let avatars = window.localStorage.getItem("avatars");
         if (avatars)
             try {
@@ -34,6 +26,17 @@ function loadData() {
             if (!avatars)
                 avatars = [];
         loadAvatars(avatars);
+
+        let messages = window.localStorage.getItem("messages");
+        if (messages)
+            try {
+                messages = JSON.parse(messages);
+            } catch (error) {
+                messages = undefined;
+            }
+        if (!messages)
+            messages = [];
+        loadMessages(messages);
 
         refreshLocalStorageInfo();
     }
@@ -83,35 +86,24 @@ function refreshLocalStorageInfo() {
     }
 }
 function loadMessages(dict) {
-    for (const message of dict) {
-        if (message.type === "text") {
-            let found = false;
-            let searchResult = "image/Avatar-Default.png";
-            $("#all-avatars-common .avatar-display-item.d-inline-block").each(function () {
-                if (!found) {
-                    if ($(this).find("img.avatar-icon").attr("md5") == message.avatarMD5) {
-                        searchResult = $(this).find("img.avatar-icon").attr("src");
-                        found = true;
-                    }
-                }
-            });
-            addText(message.value, message.right, searchResult, message.bgColor, message.fontColor, false);
-        }
-        if (message.type === "image") {
-            let found = false;
-            let searchResult = "image/Avatar-Default.png";
-            $("#all-avatars-common .avatar-display-item.d-inline-block").each(function () {
-                if (!found) {
-                    if ($(this).find("img.avatar-icon").attr("md5") == message.avatarMD5) {
-                        searchResult = $(this).find("img.avatar-icon").attr("src");
-                        found = true;
-                    }
-                }
-            });
-            addImage(message.img, message.wtr, message.right, searchResult, save = false);
-        }
+    for (let message of dict) {
         if (message.type === "datetime") {
             addDatetime(message.value, message.bgColor, message.fontColor, false);
+        } else {
+            let found = false;
+            let searchResult = message.right ? current_right_avatar : current_left_avatar;
+            $("#all-avatars-common>.avatar-display-item>.avatar-icon").each(function () {
+                if (!found) {
+                    if ($(this).attr("md5") == message.avatarMD5) {
+                        searchResult = $(this).attr("src");
+                        found = true;
+                    }
+                }
+            });
+            if (message.type === "text")
+                addText(message.value, message.bgColor, message.fontColor, message.right, searchResult, false);
+            else if (message.type === "image")
+                addImage(message.img, message.wtr, message.right, searchResult, save = false);
         }
     }
 }

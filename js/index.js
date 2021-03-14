@@ -1,7 +1,3 @@
-document.write("<script language=javascript src='js/avatars.js'></script>");
-document.write("<script language=javascript src='js/messages-control.js'></script>");
-document.write("<script language=javascript src='js/global-status.js'></script>");
-
 function saveImage() {
     $("body").addClass("body-lock");
     document.body.scrollIntoView();
@@ -83,7 +79,6 @@ $(() => {
             pd = getDateFromString(response["publish-date"]);
             $(".publish-date").text(String(pd.getFullYear())+String(pd.getMonth()).padStart(2,'0')+String(pd.getDate()));
             sul = $.cookie("since-update-logs");
-            console.log(sul);
             if(!sul || pd>=getDateFromString($.cookie("since-update-logs"))){
                 $(".new-info-point").removeClass("d-none");
             }

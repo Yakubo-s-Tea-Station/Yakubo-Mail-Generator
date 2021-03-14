@@ -5,24 +5,29 @@ function appendImageFromFile(file) {
     });
     reader.readAsDataURL(file);
 }
-function addImage(path, path_wtr = undefined, right = false, avatar = "image/Avatar-Default.png", save = true) {
+function initiateBasicBlock(dom) {
+    dom.removeAttr("id");
+    dom.removeClass("d-none");
+}
+function initiateAvateredBlock(dom, right, avatar) {
+    initiateBasicBlock(dom);
+    dom.addClass(right ? "right-block" : "left-block");
+    if (avatar == undefined)
+        avatar = right ? current_right_avatar : current_left_avatar;
+    dom.find("img.avatar-icon").attr("src", avatar);
+}
+function addImage(path, path_wtr = undefined, right = false, avatar = undefined, save = true) {
     new_block = $("#image-block-template").clone();
-    new_block.removeAttr("id");
-    new_block.removeClass("d-none");
-    new_block.addClass(right ? "right-block" : "left-block");
-    new_block.find("img.avatar-icon").attr("src", avatar);
+    initiateAvateredBlock(new_block, right, avatar);
     new_block.find("img.primary-img").attr("src", path);
     if (path_wtr)
         new_block.find("img.water-print").attr("src", path_wtr);
     $("#messages-body").append(new_block);
     if (save) saveMessages();
 }
-function addText(str, right = false, avatar = "image/Avatar-Default.png", bgColor = "#ffdbff", fontColor = "#000000", save = true) {
+function addText(str, bgColor = "#ffdbff", fontColor = "#000000", right = false, avatar = undefined, save = true) {
     new_block = $("#text-block-template").clone();
-    new_block.removeAttr("id");
-    new_block.removeClass("d-none");
-    new_block.addClass(right ? "right-block" : "left-block");
-    new_block.find("img.avatar-icon").attr("src", avatar);
+    initiateAvateredBlock(new_block, right, avatar);
     new_block.find("[contenteditable]").html(str);
     new_block.children(".square").css("background-color", bgColor);
     new_block.children(".triangle").css("border-left-color", bgColor);
@@ -33,67 +38,14 @@ function addText(str, right = false, avatar = "image/Avatar-Default.png", bgColo
 }
 function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = true) {
     new_block = $("#time-block-template").clone();
-    new_block.removeAttr("id");
-    new_block.removeClass("d-none");
+    initiateBasicBlock(new_block);
     new_block.find("[contenteditable]").html(val);
     new_block.children("span").css("background-color", bgColor);
     new_block.find("[contenteditable]").css("color", fontColor);
     $("#messages-body").append(new_block);
     if (save) saveMessages();
 }
-function changeBanner(url) {
-    var reader = new FileReader();
-    reader.addEventListener("load", function (event) {
-        $(".messages-header").attr("src", event.target.result);
-    });
-    reader.readAsDataURL(url);
-}
-function changeBackground(url) {
-    var reader = new FileReader();
-    reader.addEventListener("load", function (event) {
-        $("#messages-canvas").css("background-image", "url(" + event.target.result + ")");
-    });
-    reader.readAsDataURL(url);
-}
-function changeFooter(url) {
-    var reader = new FileReader();
-    reader.addEventListener("load", function (event) {
-        $(".messages-footer").attr("src", event.target.result);
-        $(".messages-footer-placeholder").attr("src", event.target.result);
-    });
-    reader.readAsDataURL(url);
-}
-function loadFromFormat(format) {
-    warningInfo = "";
-    if (!IsFileExists("image/" + format + "/Header-Default.png"))
-        warningInfo += "题头图片Header-Default.png不存在！<br>";
-    else
-        $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
-    if (!IsFileExists("image/" + format + "/Background-Default.png"))
-        warningInfo += "背景图片Background-Default.png不存在！<br>";
-    else
-        $("#messages-canvas").css("background-image", "url(../image" + format + "/Background-Default.png)");
-    if (!IsFileExists("image/" + format + "/Background-Default.png"))
-        warningInfo += "落款图片Footer-Default.png不存在！<br>";
-    else {
-        $(".messages-footer").attr("src", "image/" + format + "/Footer-Default.png");
-        $(".messages-footer-placeholder").attr("src", "image/" + format + "/Footer-Default.png");
-    }
-}
-function IsFileExists(filepath) {
-    var xmlhttp = null;
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.open("GET", filepath, false);
-    xmlhttp.send();
-    if (xmlhttp.readyState == 4) {
-        if (xmlhttp.status == 200) return true; //url存在
-        else return false;//其他状态 
-    }
-}
+
 $(function () {
     $(document).on("load", "img", function (event) {
         event.target.setAttribute("data-loaded", "true");
@@ -238,6 +190,8 @@ $(function () {
             callback: function () {
                 new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
                 $(this).removeClass("left-block").removeClass("right-block").addClass(new_class);
+                if ($(this).find(".avatar-icon").attr("src") == current_left_avatar || $(this).find(".avatar-icon").attr("src") == current_right_avatar)
+                    $(this).find(".avatar-icon").attr("src", new_class == "left-block" ? current_left_avatar : current_right_avatar);
                 saveMessages();
             }
         }
