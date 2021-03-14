@@ -25,7 +25,11 @@ function addImage(path, path_wtr = undefined, right = false, avatar = undefined,
     $("#messages-body").append(new_block);
     if (save) saveMessages();
 }
-function addText(str, bgColor = "#ffdbff", fontColor = "#000000", right = false, avatar = undefined, save = true) {
+function addText(str, bgColor = undefined, fontColor = undefined, right = false, avatar = undefined, save = true) {
+    if(bgColor==undefined)
+        bgColor = "#ffdbff";
+    if(fontColor==undefined)
+        fontColor = "#000000";
     new_block = $("#text-block-template").clone();
     initiateAvateredBlock(new_block, right, avatar);
     new_block.find("[contenteditable]").html(str);
@@ -36,7 +40,11 @@ function addText(str, bgColor = "#ffdbff", fontColor = "#000000", right = false,
     $("#messages-body").append(new_block);
     if (save) saveMessages();
 }
-function addDatetime(val, bgColor = "#ffdbff", fontColor = "#000000", save = true) {
+function addDatetime(val, bgColor = undefined, fontColor = undefined, save = true) {
+    if(bgColor==undefined)
+        bgColor = "#ffdbff";
+    if(fontColor==undefined)
+        fontColor = "#000000";
     new_block = $("#time-block-template").clone();
     initiateBasicBlock(new_block);
     new_block.find("[contenteditable]").html(val);
@@ -124,11 +132,10 @@ $(function () {
         }
     });
     // 每次更改文本框或者事件框时保存
-    $(document).on('change', '[contenteditable]', function () { saveMessages(); });
+    $(document).on('blur', '[contenteditable]:not(#format-url-input)', function () { saveMessages(); });
 
     let publicItems = {
         top: {
-            icon: "fa-level-up",
             name: "置顶",
             callback: function (_key, opt) {
                 opt.$trigger.parent().prepend(opt.$trigger);
@@ -136,7 +143,6 @@ $(function () {
             }
         },
         up: {
-            icon: "fa-chevron-up",
             name: "上移",
             callback: function (_key, opt) {
                 opt.$trigger.prev().before(opt.$trigger);
@@ -145,7 +151,6 @@ $(function () {
         },
         down:
         {
-            icon: "fa-chevron-down",
             name: "下移",
             callback: function (_key, opt) {
                 opt.$trigger.next().after(opt.$trigger);
@@ -153,16 +158,15 @@ $(function () {
             }
         },
         bottom: {
-            icon: "fa-level-down",
             name: "置底",
             callback: function (_key, opt) {
                 opt.$trigger.parent().append(opt.$trigger);
                 saveMessages();
             }
         },
+        "sep1": "---------",
         remove:
         {
-            icon: "fa-trash",
             name: "删除",
             callback: function (_key, opt) {
                 opt.$trigger.remove();
@@ -171,21 +175,31 @@ $(function () {
         },
         duplicate:
         {
-            icon: "fa-copy",
             name: "复制",
             callback: function (_key, opt) {
                 opt.$trigger.parent().append(opt.$trigger.clone().removeClass("context-menu-active"));
                 saveMessages();
             }
         },
-        "sep1": "---------"
+        "sep2": "---------"
+    };
+    $.contextMenu.types.selectAvatar = function (_item, opt, root) {
+        let newView = $(".all-avatars-scroll-view").clone();
+        newView.find("#all-avatars-common").removeAttr("id");
+        newView.find(".avatar-icon").addClass("selectable-avatar-icon");
+        $("<strong>更换头像</strong>" + newView.prop("outerHTML"))
+            .appendTo(this)
+            .on('click', '.selectable-avatar-icon', function () {
+                opt.$trigger.find(".avatar-icon").attr("src", $(this).prop("src"));
+                saveMessages();
+                root.$menu.trigger('contextmenu:hide');
+            });
     };
     let avatarItems = {
         changeAvatar: { type: "selectAvatar" }
     }
     let retweetItems = {
         changeSide: {
-            icon: "fa-retweet",
             name: "换边",
             callback: function () {
                 new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
@@ -197,6 +211,7 @@ $(function () {
         }
     }
     let colorItems = {
+        "sep10": "---------",
         bgColor: {
             type: "text",
             name: "更换背景颜色"

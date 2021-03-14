@@ -48,18 +48,6 @@ $(() => {
         event.preventDefault();
         event.stopPropagation();
     });
-    $.contextMenu.types.selectAvatar = function (_item, opt, root) {
-        let newView = $(".all-avatars-scroll-view").clone();
-        newView.find("#all-avatars-common").removeAttr("id");
-        newView.find(".avatar-icon").addClass("selectable-avatar-icon");
-        $("<strong>更换头像</strong>" + newView.prop("outerHTML"))
-            .appendTo(this)
-            .on('click', '.selectable-avatar-icon', function () {
-                opt.$trigger.find(".avatar-icon").attr("src", $(this).prop("src"));
-                saveMessages();
-                root.$menu.trigger('contextmenu:hide');
-            });
-    };
     $.contextMenu({
         selector: ".avatar-display-item",
         zIndex: 100,

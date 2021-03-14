@@ -113,3 +113,14 @@ function saveMessages() {
         refreshLocalStorageInfo();
     }
 }
+function loadProjectFile(file) {
+    var reader = new FileReader();
+    reader.addEventListener("load", function (event) {
+        let json_text = event.target.result;
+        $("#messages-body").empty();
+        localStorage['messages']=undefined;
+        loadMessages(eval('(' + json_text + ')'));
+        saveMessages();
+    });
+    reader.readAsText(file);
+}

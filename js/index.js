@@ -35,13 +35,22 @@ function getDateFromString(strDate) {
     return date;
 }
 
+
+function saveProjectFile(){
+    var link = document.createElement("a");
+    link.setAttribute("href","data:text/plain;charset=utf-8,"+encodeURIComponent(getProjectInfos()));
+    link.setAttribute("download",'new_project.json');
+    link.click();
+    $(link).remove();
+}
+
 $(() => {
     // 两侧按钮
     $(document).on("click", ".floating-button", (e) => {
         let fn = $(e.target).attr("fbg-name");
-        if(fn=="update-logs"){
+        if (fn == "update-logs") {
             $(".new-info-point").addClass("d-none");
-            $.cookie("since-update-logs",new Date().toDateString(),{ expires: 3650 });
+            $.cookie("since-update-logs", new Date().toDateString(), { expires: 3650 });
         }
         activateFloatingPanel($(e.target).attr("fbg-name"));
         $(e.target).addClass("floating-button-activated");
@@ -71,16 +80,18 @@ $(() => {
     });
     // 获取版本信息
     $.ajax({
-        type:"GET",
-        url:"version-info.json",
-        dataType:"json",
-        success: function(response){
-            $(".version-number").text(response["version-number"]);
+        type: "GET",
+        url: "version-info.json",
+        dataType: "json",
+        success: function (response) {
+            new_version = response["version-number"];
+            $(".version-number").text(new_version);
             pd = getDateFromString(response["publish-date"]);
-            $(".publish-date").text(String(pd.getFullYear())+String(pd.getMonth()).padStart(2,'0')+String(pd.getDate()));
-            sul = $.cookie("since-update-logs");
-            if(!sul || pd>=getDateFromString($.cookie("since-update-logs"))){
+            $(".publish-date").text(String(pd.getFullYear()) + String(pd.getMonth()).padStart(2, '0') + String(pd.getDate()));
+            sul = $.cookie("last-version");
+            if (!sul || new_version != sul) {
                 $(".new-info-point").removeClass("d-none");
+                $.cookie("last-version", new_version);
             }
         }
     });
