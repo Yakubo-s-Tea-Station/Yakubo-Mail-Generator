@@ -33,6 +33,7 @@
 </head>
 
 <body>
+	
 	<div id="main-view">
 		<div id="left-fbg" class="floating-button-groups">
 			<div fbg-name="manuals" class="floating-button">
@@ -78,7 +79,20 @@
 				<b>自动生成邮件</b>
 			</h5>
 			<div>
-				奶茶店的微博爬虫正蛰伏于遥远的虚空中，等待着合适的契机混入半自动奶精兑水机...
+				<ul id="group-tabs" class="nav nav-tabs" role="tablist">
+					<li id="nav-item-template" class="nav-item d-none">
+						<a class="nav-link active" id="home-tab" aria-controls="home" data-toggle="tab" role="tab" aria-selected="true">
+							<h6></h6>
+						</a>
+					</li>
+				</ul>
+				<div id="mail-panels" class="tab-content border border-0">
+					<div id="tab-panel-template" aria-labelledby="home-tab" class="tab-pane fade show active d-none" role="tabpanel" style="background-color: #FFFFFF30;" >
+						<ul class="list-group list-group-flush mx-4">
+							
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -257,6 +271,9 @@
 
 		<input id="input-project-file" class="d-none" type="file" accept=".json"
 			onchange="loadProjectFile(this.files[0]);this.value='';" />
+	</div>
+	<div id="loading-mask d-none">
+		<h1><b>正在拉取...</b></h1>
 	</div>
 </body>
 

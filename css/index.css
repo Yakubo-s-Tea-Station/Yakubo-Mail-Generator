@@ -300,3 +300,14 @@ img.avatar-icon {
 .right-block > span {
   margin-right: 80px;
 }
+
+/* 加载蒙版 */
+#loading-mask{
+  z-index:100000;
+  position: fixed;
+  top:0;
+  right:0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff60;
+}
