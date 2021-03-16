@@ -78,7 +78,7 @@
 			<h5>
 				<b>自动生成邮件</b>
 			</h5>
-			<div>
+			<div id="daily-message-tabs" class="d-none">
 				<ul id="group-tabs" class="nav nav-tabs" role="tablist">
 					<li id="nav-item-template" class="nav-item d-none">
 						<a class="nav-link active" id="home-tab" aria-controls="home" data-toggle="tab" role="tab" aria-selected="true">
@@ -93,6 +93,9 @@
 						</ul>
 					</div>
 				</div>
+			</div>
+			<div id="daily-message-loading" class="">
+				列表正在加载中，请稍后...
 			</div>
 		</div>
 
@@ -272,7 +275,7 @@
 		<input id="input-project-file" class="d-none" type="file" accept=".json"
 			onchange="loadProjectFile(this.files[0]);this.value='';" />
 	</div>
-	<div id="loading-mask d-none">
+	<div id="loading-mask" class="d-none">
 		<h1><b>正在拉取...</b></h1>
 	</div>
 </body>

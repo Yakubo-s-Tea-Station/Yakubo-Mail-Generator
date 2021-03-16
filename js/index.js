@@ -103,12 +103,16 @@ $(() => {
                     let mail = response[group]["mail-files"][i];
                     new_panel.find("ul").prepend('<li ><a href="#" file-size="' + mail[1] + '" date-string="' + mail[0] + '" group="' + group + '">' + mail[0] + "</a>  共计 " + mail[2] + " 封  " + (mail[1] / 1024 / 1024).toFixed(2) + 'MB</li>');
                 }
+                $("#daily-message-loading").addClass("d-none");
+                $("#daily-message-tabs").removeClass("d-none");
             }
+        },
+        error:()=>{
+            $("#daily-message-tabs").text("加载失败，请刷新页面重试");
         }
     });
     $(document).on("click", "a[date-string]", function (e) {
-        console.log(e.target);
-        $("loading-mask").removeClass("d-none");
+        $("#loading-mask").removeClass("d-none");
         closeFloatingPanel();
         $.ajax({
             type: "GET",
@@ -119,10 +123,10 @@ $(() => {
                 localStorage['messages']=undefined;
                 loadMessages(response);
                 saveMessages();
-                $("loading-mask").addClass("d-none");
+                $("#loading-mask").addClass("d-none");
             },
             error: ()=>{
-                $("loading-mask").addClass("d-none");
+                $("#loading-mask").addClass("d-none");
             }
         })
     });

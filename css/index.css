@@ -311,3 +311,9 @@ img.avatar-icon {
   width: 100%;
   background-color: #ffffff60;
 }
+#loading-mask>h1{
+  position: absolute;
+  transform: translateX(50%);
+  right: 50%;
+  top: 50%;
+}
