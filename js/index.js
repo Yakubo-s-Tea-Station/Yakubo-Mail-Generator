@@ -80,7 +80,7 @@ $(() => {
     });
     $.ajax({
         type: "GET",
-        url: "https://raw.githubusercontent.com/Yakubo-s-Tea-Station/Mails-Storage/main/list.json",
+        url: "http://yakubo-s-tea-station.gitee.io/mails-storage/list.json",
         dataType: "json",
         success: function (response) {
             for (let group in response) {
@@ -116,7 +116,7 @@ $(() => {
         closeFloatingPanel();
         $.ajax({
             type: "GET",
-            url: "https://raw.githubusercontent.com/Yakubo-s-Tea-Station/Mails-Storage/main/"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
+            url: "http://yakubo-s-tea-station.gitee.io/mails-storage"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
             dataType: "json",
             success: function (response) {
                 $("#messages-body").empty();
