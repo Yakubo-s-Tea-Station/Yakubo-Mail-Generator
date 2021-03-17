@@ -117,11 +117,13 @@ $(() => {
         $.ajax({
             type: "GET",
             url: "http://yakubo-s-tea-station.gitee.io/mails-storage/"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
-            dataType: "json",
+            dataType: "text",
             success: function (response) {
-                $("#messages-body").empty();
-                localStorage['messages']=undefined;
+                $("#messages-body").children(".left-block").remove();
+                $("#messages-body").children(".time-block").remove();
+                localStorage['messages'] = undefined;
                 loadMessages(response);
+                $("#messages-body").append($("#messages-body").find(".right-block"));
                 saveMessages();
                 $("#loading-mask").addClass("d-none");
             },
