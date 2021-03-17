@@ -2,8 +2,11 @@ var current_format = "Yakubo Mio"
 var current_left_avatar = "image/Yakubo Mio/Avatar-Default.png"
 var current_right_avatar = "image/Yakubo Mio/Avatar-Secondary-Default.png"
 var current_left_bg_color = "rgb(255, 219, 239)"
+var current_left_color = ""
 var current_right_bg_color = "rgb(255, 169, 218)"
+var current_right_color = ""
 var current_datetime_bg_color = "rgb(255, 169, 218)"
+var current_datetime_color = "rgb(255, 169, 218)"
 function loadData() {
     if (!window.localStorage) {
         alert("您的浏览器不支持Local Storage特性，这意味着您无法自动保存会话状态")
@@ -112,6 +115,7 @@ function loadMessages(dict) {
 }
 function saveMessages() {
     if (window.localStorage) {
+        console.log(getProjectInfos());
         window.localStorage.setItem("messages", getProjectInfos());
         refreshLocalStorageInfo();
     }
@@ -120,9 +124,11 @@ function loadProjectFile(file) {
     var reader = new FileReader();
     reader.addEventListener("load", function (event) {
         let json_text = event.target.result;
-        $("#messages-body").empty();
-        localStorage['messages']=undefined;
+        $("#messages-body").children(".left-block").remove();
+        $("#messages-body").children(".time-block").remove();
+        localStorage['messages'] = undefined;
         loadMessages(eval('(' + json_text + ')'));
+        $("#messages-body").append($("#messages-body").find(".right-block"));
         saveMessages();
     });
     reader.readAsText(file);
