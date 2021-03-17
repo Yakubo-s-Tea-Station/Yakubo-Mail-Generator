@@ -28,8 +28,12 @@ function loadFromFormat(format) {
         $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
     if (!IsFileExists("image/" + format + "/Background-Default.png"))
         warningInfo += "背景图片Background-Default.png不存在！<br>";
-    else
-        $("#messages-canvas").css("background-image", "url(../image" + format + "/Background-Default.png)");
+    else{
+        console.log("url(../image/" + format + "/Background-Default.png)");
+        
+        $("#messages-canvas").css("background-image", "url('image/" + format + "/Background-Default.png')");
+    }
+       
     if (!IsFileExists("image/" + format + "/Background-Default.png"))
         warningInfo += "落款图片Footer-Default.png不存在！<br>";
     else {
@@ -38,6 +42,7 @@ function loadFromFormat(format) {
     }
     let new_default_avatar_path = "image/" + format + "/Avatar-Default.png";
     current_left_avatar = IsFileExists(new_default_avatar_path) ? new_default_avatar_path : "image/Avatar-Default.png";
+    console.log(current_left_avatar);
     let new_default_secondary_avatar_path = "image/" + format + "/Avatar-Secondary-Default.png";
     current_right_avatar = IsFileExists(new_default_secondary_avatar_path) ? new_default_secondary_avatar_path : current_left_avatar;
 }

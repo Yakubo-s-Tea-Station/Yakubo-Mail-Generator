@@ -29,7 +29,7 @@ function addText(str, bgColor = undefined, fontColor = undefined, right = false,
     if (bgColor == undefined)
         bgColor = current_left_bg_color;
     if (fontColor == undefined)
-        fontColor = "#000000";
+        fontColor = current_left_color;
     new_block = $("#text-block-template").clone();
     initiateAvateredBlock(new_block, right, avatar);
     new_block.find("[contenteditable]").html(str);
@@ -44,7 +44,7 @@ function addDatetime(val, bgColor = undefined, fontColor = undefined, save = tru
     if (bgColor == undefined)
         bgColor = current_datetime_bg_color;
     if (fontColor == undefined)
-        fontColor = "white";
+        fontColor = current_datetime_color;
     new_block = $("#time-block-template").clone();
     initiateBasicBlock(new_block);
     new_block.find("[contenteditable]").html(val);

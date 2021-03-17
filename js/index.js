@@ -107,7 +107,7 @@ $(() => {
                 $("#daily-message-tabs").removeClass("d-none");
             }
         },
-        error:()=>{
+        error: () => {
             $("#daily-message-tabs").text("加载失败，请刷新页面重试");
         }
     });
@@ -116,7 +116,7 @@ $(() => {
         closeFloatingPanel();
         $.ajax({
             type: "GET",
-            url: "http://yakubo-s-tea-station.gitee.io/mails-storage/"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
+            url: "http://yakubo-s-tea-station.gitee.io/mails-storage/" + $(e.target).attr("group") + "/" + $(e.target).attr("date-string") + ".json",
             dataType: "json",
             success: function (response) {
                 $("#messages-body").children(".left-block").remove();
@@ -127,7 +127,7 @@ $(() => {
                 saveMessages();
                 $("#loading-mask").addClass("d-none");
             },
-            error: ()=>{
+            error: () => {
                 $("#loading-mask").addClass("d-none");
             }
         })
@@ -141,7 +141,7 @@ $(() => {
             new_version = response["version-number"];
             $(".version-number").text(new_version);
             pd = getDateFromString(response["publish-date"]);
-            $(".publish-date").text(String(pd.getFullYear()) + String(pd.getMonth()+1).padStart(2, '0') + String(pd.getDate()));
+            $(".publish-date").text(String(pd.getFullYear()) + String(pd.getMonth() + 1).padStart(2, '0') + String(pd.getDate()));
             sul = $.cookie("last-version");
             if (!sul || new_version != sul) {
                 $(".new-info-point").removeClass("d-none");
@@ -150,4 +150,9 @@ $(() => {
         }
     });
     loadData();
+    $(document).on('blur', '#format-url-input',
+        function () {
+            window.localStorage.getItem("format-name") = $("#format-url-input").val();
+        });
+    loadFromFormat(current_format);
 });

@@ -113,7 +113,6 @@ body {
   width: var(--messages-canvas-width);
   margin: auto;
   border: none;
-  background-image: url("../image/Yakubo Mio/Background-Default.png");
   background-size: 100%;
   background-repeat: repeat;
 }
