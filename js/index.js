@@ -150,9 +150,4 @@ $(() => {
         }
     });
     loadData();
-    $(document).on('blur', '#format-url-input',
-        function () {
-            window.localStorage.getItem("format-name") = $("#format-url-input").val();
-        });
-    loadFromFormat(current_format);
 });

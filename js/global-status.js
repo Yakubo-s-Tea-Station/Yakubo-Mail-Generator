@@ -19,6 +19,8 @@ function loadData() {
 
         let tfn = window.localStorage.getItem("format-name");
         if (tfn) $("#format-url-input").val(tfn);
+        if(tfn == undefined||tfn == "")
+            tfn = "Yakubo Mio";
         loadFromFormat(tfn);
 
         let avatars = window.localStorage.getItem("avatars");
