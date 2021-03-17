@@ -44,7 +44,7 @@ function addDatetime(val, bgColor = undefined, fontColor = undefined, save = tru
     if (bgColor == undefined)
         bgColor = current_datetime_bg_color;
     if (fontColor == undefined)
-        fontColor = "#000000";
+        fontColor = "white";
     new_block = $("#time-block-template").clone();
     initiateBasicBlock(new_block);
     new_block.find("[contenteditable]").html(val);
@@ -214,7 +214,6 @@ $(function () {
                 $(this).children("span.square").css("background-color", new_bg_color);
                 $(this).children(".triangle").css("border-left-color", new_bg_color);
                 $(this).children(".triangle").css("border-right-color", new_bg_color);
-                $(this).find("[contenteditable]").css("color", new_bg_color);
                 if ($(this).find(".avatar-icon").attr("src") == current_left_avatar || $(this).find(".avatar-icon").attr("src") == current_right_avatar)
                     $(this).find(".avatar-icon").attr("src", new_class == "left-block" ? current_left_avatar : current_right_avatar);
                 saveMessages();

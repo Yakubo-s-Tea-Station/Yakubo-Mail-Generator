@@ -1,7 +1,7 @@
 var current_format = "Yakubo Mio"
 var current_left_avatar = "image/Yakubo Mio/Avatar-Default.png"
 var current_right_avatar = "image/Yakubo Mio/Avatar-Secondary-Default.png"
-var current_left_bg_color = "rgb(255, 219, 255)"
+var current_left_bg_color = "rgb(255, 219, 239)"
 var current_right_bg_color = "rgb(255, 169, 218)"
 var current_datetime_bg_color = "rgb(255, 169, 218)"
 function loadData() {
