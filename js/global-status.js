@@ -115,7 +115,6 @@ function loadMessages(dict) {
 }
 function saveMessages() {
     if (window.localStorage) {
-        console.log(getProjectInfos());
         window.localStorage.setItem("messages", getProjectInfos());
         refreshLocalStorageInfo();
     }

@@ -117,7 +117,7 @@ $(() => {
         $.ajax({
             type: "GET",
             url: "http://yakubo-s-tea-station.gitee.io/mails-storage/"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
-            dataType: "text",
+            dataType: "json",
             success: function (response) {
                 $("#messages-body").children(".left-block").remove();
                 $("#messages-body").children(".time-block").remove();
