@@ -116,7 +116,7 @@ $(() => {
         closeFloatingPanel();
         $.ajax({
             type: "GET",
-            url: "http://yakubo-s-tea-station.gitee.io/mails-storage"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
+            url: "http://yakubo-s-tea-station.gitee.io/mails-storage/"+$(e.target).attr("group")+"/"+$(e.target).attr("date-string")+".json",
             dataType: "json",
             success: function (response) {
                 $("#messages-body").empty();
