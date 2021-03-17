@@ -26,9 +26,9 @@ function addImage(path, path_wtr = undefined, right = false, avatar = undefined,
     if (save) saveMessages();
 }
 function addText(str, bgColor = undefined, fontColor = undefined, right = false, avatar = undefined, save = true) {
-    if(bgColor==undefined)
-        bgColor = "#ffdbff";
-    if(fontColor==undefined)
+    if (bgColor == undefined)
+        bgColor = current_left_bg_color;
+    if (fontColor == undefined)
         fontColor = "#000000";
     new_block = $("#text-block-template").clone();
     initiateAvateredBlock(new_block, right, avatar);
@@ -41,9 +41,9 @@ function addText(str, bgColor = undefined, fontColor = undefined, right = false,
     if (save) saveMessages();
 }
 function addDatetime(val, bgColor = undefined, fontColor = undefined, save = true) {
-    if(bgColor==undefined)
-        bgColor = "#ffdbff";
-    if(fontColor==undefined)
+    if (bgColor == undefined)
+        bgColor = current_datetime_bg_color;
+    if (fontColor == undefined)
         fontColor = "#000000";
     new_block = $("#time-block-template").clone();
     initiateBasicBlock(new_block);
@@ -202,8 +202,19 @@ $(function () {
         changeSide: {
             name: "换边",
             callback: function () {
-                new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
+                let new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
                 $(this).removeClass("left-block").removeClass("right-block").addClass(new_class);
+                let new_bg_color = $(this).children("span").css("background-color");
+                if (new_class == "right-block" && $(this).children("span").css("background-color") == current_left_bg_color) {
+                    new_bg_color = current_right_bg_color;
+                }
+                else if (new_class == "left-block" && $(this).children("span").css("background-color") == current_right_bg_color) {
+                    new_bg_color = current_left_bg_color;
+                }
+                $(this).children("span.square").css("background-color", new_bg_color);
+                $(this).children(".triangle").css("border-left-color", new_bg_color);
+                $(this).children(".triangle").css("border-right-color", new_bg_color);
+                $(this).find("[contenteditable]").css("color", new_bg_color);
                 if ($(this).find(".avatar-icon").attr("src") == current_left_avatar || $(this).find(".avatar-icon").attr("src") == current_right_avatar)
                     $(this).find(".avatar-icon").attr("src", new_class == "left-block" ? current_left_avatar : current_right_avatar);
                 saveMessages();
@@ -220,6 +231,19 @@ $(function () {
         {
             type: "text",
             name: "更换字体颜色"
+        },
+        changeColor:
+        {
+            name: "更改颜色",
+            icon: "edit",
+            callback: function (itemKey, opt, rootMenu, originalEvent) {
+                new_data = $.contextMenu.getInputValues(opt);
+                opt.$trigger.children("span.square").css("background-color", new_data.bgColor);
+                opt.$trigger.children(".triangle").css("border-left-color", new_data.bgColor);
+                opt.$trigger.children(".triangle").css("border-right-color", new_data.bgColor);
+                opt.$trigger.find("[contenteditable]").css("color", new_data.fontColor);
+                saveMessages();
+            }
         }
     }
     $.contextMenu({
@@ -234,12 +258,6 @@ $(function () {
                         fontColor: opt.$trigger.find("[contenteditable]").css("color")
                     }
                 );
-            },
-            hide: function (opt) {
-                new_data = $.contextMenu.getInputValues(opt);
-                opt.$trigger.children("span").css("background-color", new_data.bgColor);
-                opt.$trigger.find("[contenteditable]").css("color", new_data.fontColor);
-                saveMessages();
             }
         }
     });
@@ -261,14 +279,6 @@ $(function () {
                         fontColor: opt.$trigger.find("[contenteditable]").css("color")
                     }
                 );
-            },
-            hide: function (opt) {
-                new_data = $.contextMenu.getInputValues(opt);
-                opt.$trigger.children("span.square").css("background-color", new_data.bgColor);
-                opt.$trigger.children(".triangle").css("border-left-color", new_data.bgColor);
-                opt.$trigger.children(".triangle").css("border-right-color", new_data.bgColor);
-                opt.$trigger.find("[contenteditable]").css("color", new_data.fontColor);
-                saveMessages();
             }
         }
     });
