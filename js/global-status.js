@@ -19,12 +19,17 @@ function loadData() {
             }
         }
 
-        all_color_fields = ["current_left_bg_color","current_left_color","current_right_bg_color","current_right_color","current_datetime_bg_color","current_datetime_color"]
-        for (let field in all_color_fields){
-            if(localStorage[field]==undefined)
-                localStorage[field] = color_format_default[field];
-            $("[field="+field+"]").css("background-color",localStorage[field]);
+        all_color_fields = ["current_left_bg_color", "current_left_color", "current_right_bg_color", "current_right_color", "current_datetime_bg_color", "current_datetime_color"]
+        for (let field in all_color_fields) {
+            field = all_color_fields[field];
+            let fv = window.localStorage.getItem(field);
+            if (fv == undefined || fv == "") {
+                console.log(field + " and " + color_format_default[field]);
+                window.localStorage.setItem(field, color_format_default[field]);
+            }
+            $("[field=" + field + "]").css("background-color", window.localStorage.getItem(field));
         }
+
         let tfn = window.localStorage.getItem("format-name");
         if (tfn) $("#format-url-input").val(tfn);
         if (tfn == undefined || tfn == "")
@@ -144,5 +149,8 @@ function loadProjectFile(file) {
 }
 
 $(() => {
-    $(document).on('blur', '#format-url-input', function () { window.localStorage.getItem("format-name") = $("#format-url-input").val(); });
+    $(document).on('blur', '#format-url-input',
+        function () {
+            window.localStorage.setItem("format-name", $("#format-url-input").val());
+        });
 })

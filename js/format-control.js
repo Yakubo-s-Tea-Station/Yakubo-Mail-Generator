@@ -29,8 +29,6 @@ function loadFromFormat(format) {
     if (!IsFileExists("image/" + format + "/Background-Default.png"))
         warningInfo += "背景图片Background-Default.png不存在！<br>";
     else {
-        console.log("url(../image/" + format + "/Background-Default.png)");
-
         $("#messages-canvas").css("background-image", "url('image/" + format + "/Background-Default.png')");
     }
 
@@ -42,7 +40,6 @@ function loadFromFormat(format) {
     }
     let new_default_avatar_path = "image/" + format + "/Avatar-Default.png";
     current_left_avatar = IsFileExists(new_default_avatar_path) ? new_default_avatar_path : "image/Avatar-Default.png";
-    console.log(current_left_avatar);
     let new_default_secondary_avatar_path = "image/" + format + "/Avatar-Secondary-Default.png";
     current_right_avatar = IsFileExists(new_default_secondary_avatar_path) ? new_default_secondary_avatar_path : current_left_avatar;
 }
@@ -62,8 +59,9 @@ function IsFileExists(filepath) {
 }
 $(() => {
     $(document).on("change", ".default-color-input", (e) => {
-        localStorage[$(e.target).attr("field")] = $(e.target).val(); 
         $(e.target).css('background-color', $(e.target).val()); 
         $(e.target).val('');
+        console.log( $(e.target).css("background-color"));
+        window.localStorage.setItem($(e.target).attr("field"),$(e.target).css("background-color")); 
     });
 });

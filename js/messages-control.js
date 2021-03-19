@@ -27,11 +27,12 @@ function addImage(path, path_wtr = undefined, right = false, avatar = undefined,
 }
 function addText(str, bgColor = undefined, fontColor = undefined, right = false, avatar = undefined, save = true) {
     if (bgColor == undefined)
-        bgColor = localStorage["current_left_bg_color"];
+        bgColor = window.localStorage.getItem("current_left_bg_color");
     if (fontColor == undefined)
-        fontColor = localStorage["current_left_color"];
+        fontColor = window.localStorage.getItem("current_left_color");
     new_block = $("#text-block-template").clone();
     initiateAvateredBlock(new_block, right, avatar);
+    str = "<div>"+str.replaceAll("\n","</div><div>")+"</div>";
     new_block.find("[contenteditable]").html(str);
     new_block.children(".square").css("background-color", bgColor);
     new_block.children(".triangle").css("border-left-color", bgColor);
@@ -42,9 +43,9 @@ function addText(str, bgColor = undefined, fontColor = undefined, right = false,
 }
 function addDatetime(val, bgColor = undefined, fontColor = undefined, save = true) {
     if (bgColor == undefined)
-        bgColor = localStorage["current_datetime_bg_color"];
+        bgColor = window.localStorage.getItem("current_datetime_bg_color");
     if (fontColor == undefined)
-        fontColor = localStorage["current_datetime_color"];
+        fontColor = window.localStorage.getItem("current_datetime_color");
     new_block = $("#time-block-template").clone();
     initiateBasicBlock(new_block);
     new_block.find("[contenteditable]").html(val);
@@ -205,11 +206,12 @@ $(function () {
                 let new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
                 $(this).removeClass("left-block").removeClass("right-block").addClass(new_class);
                 let new_bg_color = $(this).children("span").css("background-color");
-                if (new_class == "right-block" && $(this).children("span").css("background-color") == localStorage["current_left_bg_color"]) {
-                    new_bg_color = localStorage["current_right_bg_color"];
+                console.log($(this).children("span").css("background-color") + " and "+window.localStorage.getItem("current_left_bg_color"));
+                if (new_class == "right-block" && $(this).children("span").css("background-color") == window.localStorage.getItem("current_left_bg_color")) {
+                    new_bg_color = window.localStorage.getItem("current_right_bg_color");
                 }
-                else if (new_class == "left-block" && $(this).children("span").css("background-color") == localStorage["current_right_bg_color"]) {
-                    new_bg_color = localStorage["current_left_bg_color"];
+                else if (new_class == "left-block" && $(this).children("span").css("background-color") == window.localStorage.getItem("current_right_bg_color")) {
+                    new_bg_color = window.localStorage.getItem("current_left_bg_color");
                 }
                 $(this).children("span.square").css("background-color", new_bg_color);
                 $(this).children(".triangle").css("border-left-color", new_bg_color);

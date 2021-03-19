@@ -16,10 +16,6 @@ function saveImage() {
     });
     $("body").removeClass("body-lock");
 }
-
-function saveProjectFile() {
-
-}
 function activateFloatingPanel(name) {
     closeFloatingPanel();
     $("#" + name + "-panel").removeClass("d-none");
@@ -28,14 +24,11 @@ function closeFloatingPanel() {
     $(".floating-panel:not(.d-none)").addClass("d-none");
     $(".floating-button").removeClass("floating-button-activated");
 }
-
 function getDateFromString(strDate) {
     var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
         function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
     return date;
 }
-
-
 function saveProjectFile() {
     var link = document.createElement("a");
     link.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(getProjectInfos()));
@@ -43,7 +36,6 @@ function saveProjectFile() {
     link.click();
     $(link).remove();
 }
-
 $(() => {
     // 两侧按钮
     $(document).on("click", ".floating-button", (e) => {
