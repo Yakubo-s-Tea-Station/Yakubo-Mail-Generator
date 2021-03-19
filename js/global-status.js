@@ -1,11 +1,13 @@
 var current_left_avatar = ""
 var current_right_avatar = ""
-var current_left_bg_color = "rgb(255, 219, 239)"
-var current_left_color = "black"
-var current_right_bg_color = "rgb(255, 169, 218)"
-var current_right_color = "black"
-var current_datetime_bg_color = "rgb(255, 169, 218)"
-var current_datetime_color = "white"
+var color_format = {
+    "current_left_bg_color": "rgb(255, 219, 239)",
+    "current_left_color": "lack",
+    "current_right_bg_color": "rgb(255, 169, 218)",
+    "current_right_color": "black",
+    "current_datetime_bg_color": "rgb(255, 169, 218)",
+    "current_datetime_color": "white",
+}
 function loadData() {
     if (!window.localStorage) {
         alert("您的浏览器不支持Local Storage特性，这意味着您无法自动保存会话状态")
@@ -19,7 +21,7 @@ function loadData() {
 
         let tfn = window.localStorage.getItem("format-name");
         if (tfn) $("#format-url-input").val(tfn);
-        if(tfn == undefined||tfn == "")
+        if (tfn == undefined || tfn == "")
             tfn = "Yakubo Mio";
         loadFromFormat(tfn);
 
