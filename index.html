@@ -33,7 +33,7 @@
 </head>
 
 <body>
-	
+
 	<div id="main-view">
 		<div id="left-fbg" class="floating-button-groups">
 			<div fbg-name="manuals" class="floating-button">
@@ -81,15 +81,17 @@
 			<div id="daily-message-tabs" class="d-none">
 				<ul id="group-tabs" class="nav nav-tabs" role="tablist">
 					<li id="nav-item-template" class="nav-item d-none">
-						<a class="nav-link active" id="home-tab" aria-controls="home" data-toggle="tab" role="tab" aria-selected="true">
+						<a class="nav-link active" id="home-tab" aria-controls="home" data-toggle="tab" role="tab"
+							aria-selected="true">
 							<h6></h6>
 						</a>
 					</li>
 				</ul>
 				<div id="mail-panels" class="tab-content border border-0">
-					<div id="tab-panel-template" aria-labelledby="home-tab" class="tab-pane fade show active d-none" role="tabpanel" style="background-color: #FFFFFF30;" >
+					<div id="tab-panel-template" aria-labelledby="home-tab" class="tab-pane fade show active d-none"
+						role="tabpanel" style="background-color: #FFFFFF30;">
 						<ul class="list-group list-group-flush mx-4">
-							
+
 						</ul>
 					</div>
 				</div>
@@ -202,6 +204,40 @@
 					</div>
 				</div>
 
+				<div class="mt-3">
+					<h5>默认颜色设置</h5>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" style="border-bottom-left-radius: 0;">左侧文字</span>
+						</div>
+						<input type="text" field="current_left_bg_color" class="form-control default-color-input"
+							placeholder="背景色">
+						<input type="text" field="current_left_color" style="border-bottom-right-radius: 0;"
+							class="default-color-input form-control" placeholder="文字色">
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"
+								style="border-top-width: 0 ;border-bottom-left-radius: 0;border-top-left-radius: 0;">右侧文字</span>
+						</div>
+						<input type="text" field="current_right_bg_color" style="border-top-width: 0 "
+							class="default-color-input form-control" placeholder="背景色">
+						<input type="text" field="current_right_color"
+							style="border-top-width: 0 ;border-bottom-right-radius: 0;border-top-right-radius: 0;"
+							class="form-control default-color-input" placeholder="文字色">
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"
+								style="border-top-width: 0 ;border-top-left-radius: 0;">日期框体</span>
+						</div>
+						<input type="text" style="border-top-width: 0 " class="form-control default-color-input" field="current_datetime_bg_color" 
+							placeholder="背景色">
+						<input type="text" style="border-top-width: 0 ;border-top-right-radius: 0;" field="current_datetime_color" 
+							class="default-color-input form-control" placeholder="文字色">
+					</div>
+				</div>
+
 				<div class="input-group mt-3">
 					<input id="local-storage-info" type="text" class="form-control" disabled="disabled" />
 					<div class="input-group-append">
@@ -222,10 +258,13 @@
 
 		<div id="messages-canvas-container" class="d-inline-block align-top">
 			<div id="messages-canvas">
-				<img class="messages-header" crossorigin="anonymous" onerror="this.src='image/Yakubo Mio/Header-Default.png';" />
+				<img class="messages-header" crossorigin="anonymous"
+					onerror="this.src='image/Yakubo Mio/Header-Default.png';" />
 				<div id="messages-body"></div>
-				<img class="messages-footer" crossorigin="anonymous" onerror="this.src='image/Yakubo Mio/Footer-Default.png'" />
-				<img class="messages-footer-placeholder" crossorigin="anonymous" onerror="this.src='image/Yakubo Mio/Footer-Default.png'" />
+				<img class="messages-footer" crossorigin="anonymous"
+					onerror="this.src='image/Yakubo Mio/Footer-Default.png'" />
+				<img class="messages-footer-placeholder" crossorigin="anonymous"
+					onerror="this.src='image/Yakubo Mio/Footer-Default.png'" />
 			</div>
 		</div>
 

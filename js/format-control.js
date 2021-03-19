@@ -28,12 +28,12 @@ function loadFromFormat(format) {
         $(".messages-header").attr("src", "image/" + format + "/Header-Default.png");
     if (!IsFileExists("image/" + format + "/Background-Default.png"))
         warningInfo += "背景图片Background-Default.png不存在！<br>";
-    else{
+    else {
         console.log("url(../image/" + format + "/Background-Default.png)");
-        
+
         $("#messages-canvas").css("background-image", "url('image/" + format + "/Background-Default.png')");
     }
-       
+
     if (!IsFileExists("image/" + format + "/Background-Default.png"))
         warningInfo += "落款图片Footer-Default.png不存在！<br>";
     else {
@@ -60,3 +60,10 @@ function IsFileExists(filepath) {
         else return false;//其他状态 
     }
 }
+$(() => {
+    $(document).on("change", ".default-color-input", (e) => {
+        localStorage[$(e.target).attr("field")] = $(e.target).val(); 
+        $(e.target).css('background-color', $(e.target).val()); 
+        $(e.target).val('');
+    });
+});

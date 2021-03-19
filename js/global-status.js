@@ -1,12 +1,12 @@
 var current_left_avatar = ""
 var current_right_avatar = ""
-var color_format = {
+var color_format_default = {
     "current_left_bg_color": "rgb(255, 219, 239)",
-    "current_left_color": "lack",
+    "current_left_color": "rgb(0, 0, 0)",
     "current_right_bg_color": "rgb(255, 169, 218)",
-    "current_right_color": "black",
+    "current_right_color": "rgb(0, 0, 0)",
     "current_datetime_bg_color": "rgb(255, 169, 218)",
-    "current_datetime_color": "white",
+    "current_datetime_color": "rgb(255, 255, 255)",
 }
 function loadData() {
     if (!window.localStorage) {
@@ -19,6 +19,12 @@ function loadData() {
             }
         }
 
+        all_color_fields = ["current_left_bg_color","current_left_color","current_right_bg_color","current_right_color","current_datetime_bg_color","current_datetime_color"]
+        for (let field in all_color_fields){
+            if(localStorage[field]==undefined)
+                localStorage[field] = color_format_default[field];
+            $("[field="+field+"]").css("background-color",localStorage[field]);
+        }
         let tfn = window.localStorage.getItem("format-name");
         if (tfn) $("#format-url-input").val(tfn);
         if (tfn == undefined || tfn == "")

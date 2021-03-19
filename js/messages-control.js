@@ -27,9 +27,9 @@ function addImage(path, path_wtr = undefined, right = false, avatar = undefined,
 }
 function addText(str, bgColor = undefined, fontColor = undefined, right = false, avatar = undefined, save = true) {
     if (bgColor == undefined)
-        bgColor = color_format["current_left_bg_color"];
+        bgColor = localStorage["current_left_bg_color"];
     if (fontColor == undefined)
-        fontColor = color_format["current_left_color"];
+        fontColor = localStorage["current_left_color"];
     new_block = $("#text-block-template").clone();
     initiateAvateredBlock(new_block, right, avatar);
     new_block.find("[contenteditable]").html(str);
@@ -42,9 +42,9 @@ function addText(str, bgColor = undefined, fontColor = undefined, right = false,
 }
 function addDatetime(val, bgColor = undefined, fontColor = undefined, save = true) {
     if (bgColor == undefined)
-        bgColor = color_format["current_datetime_bg_color"];
+        bgColor = localStorage["current_datetime_bg_color"];
     if (fontColor == undefined)
-        fontColor = color_format["current_datetime_color"];
+        fontColor = localStorage["current_datetime_color"];
     new_block = $("#time-block-template").clone();
     initiateBasicBlock(new_block);
     new_block.find("[contenteditable]").html(val);
@@ -205,11 +205,11 @@ $(function () {
                 let new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
                 $(this).removeClass("left-block").removeClass("right-block").addClass(new_class);
                 let new_bg_color = $(this).children("span").css("background-color");
-                if (new_class == "right-block" && $(this).children("span").css("background-color") == color_format["current_left_bg_color"]) {
-                    new_bg_color = color_format["current_right_bg_color"];
+                if (new_class == "right-block" && $(this).children("span").css("background-color") == localStorage["current_left_bg_color"]) {
+                    new_bg_color = localStorage["current_right_bg_color"];
                 }
-                else if (new_class == "left-block" && $(this).children("span").css("background-color") == color_format["current_right_bg_color"]) {
-                    new_bg_color = color_format["current_left_bg_color"];
+                else if (new_class == "left-block" && $(this).children("span").css("background-color") == localStorage["current_right_bg_color"]) {
+                    new_bg_color = localStorage["current_left_bg_color"];
                 }
                 $(this).children("span.square").css("background-color", new_bg_color);
                 $(this).children(".triangle").css("border-left-color", new_bg_color);
