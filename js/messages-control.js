@@ -32,7 +32,8 @@ function addText(str, bgColor = undefined, fontColor = undefined, right = false,
         fontColor = window.localStorage.getItem("current_left_color");
     new_block = $("#text-block-template").clone();
     initiateAvateredBlock(new_block, right, avatar);
-    str = "<div>"+str.replaceAll("\n","</div><div>")+"</div>";
+    if(str!="" && str.indexOf("\n")>=0)
+        str = "<div>" + str.replaceAll("\n", "</div><div>") + "</div>";
     new_block.find("[contenteditable]").html(str);
     new_block.children(".square").css("background-color", bgColor);
     new_block.children(".triangle").css("border-left-color", bgColor);
@@ -206,7 +207,7 @@ $(function () {
                 let new_class = $(this).hasClass("left-block") ? "right-block" : "left-block";
                 $(this).removeClass("left-block").removeClass("right-block").addClass(new_class);
                 let new_bg_color = $(this).children("span").css("background-color");
-                console.log($(this).children("span").css("background-color") + " and "+window.localStorage.getItem("current_left_bg_color"));
+                console.log($(this).children("span").css("background-color") + " and " + window.localStorage.getItem("current_left_bg_color"));
                 if (new_class == "right-block" && $(this).children("span").css("background-color") == window.localStorage.getItem("current_left_bg_color")) {
                     new_bg_color = window.localStorage.getItem("current_right_bg_color");
                 }

@@ -29,7 +29,7 @@
   box-shadow: #ffffff 0px 0px 6px inset, #000000 0px 0px 12px;
 }
 
-.new-info-point{
+.new-info-point {
   position: absolute;
   z-index: 10000;
   left: -3.8rem;
@@ -61,15 +61,15 @@
   z-index: 10000;
   background-color: #c774d6f6;
   box-shadow: #f1c1fa 0px 0px 12px inset, #7a5281 0px 0px 24px;
+  min-width: 450px;
   width: 45vw;
   border-radius: 1rem;
   border: 1rem double #7c426e1f;
 }
-.floating-panel>*:not(.floating-panel-close-button){
+.floating-panel > *:not(.floating-panel-close-button) {
   background-color: #ffffff30;
-  padding:1rem;
+  padding: 1rem;
   margin: 0;
-
 }
 
 .floating-panel-close-button {
