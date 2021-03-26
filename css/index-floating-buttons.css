@@ -83,3 +83,9 @@
 .floating-panel-close-button > i:hover {
   color: #ffffff;
 }
+
+.vertical-scroll{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 25vh;
+}

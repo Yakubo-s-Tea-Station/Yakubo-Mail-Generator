@@ -70,6 +70,7 @@ $(() => {
             $("#manuals-contents").html(response);
         }
     });
+    // 获取爬虫信息
     $.ajax({
         type: "GET",
         url: "http://mailstorage.vakno.top/Mails-Storage/list.json",
@@ -90,10 +91,11 @@ $(() => {
                 new_panel.find("a").attr("aria-labelledby", group + "-tab");
                 $("#mail-panels").prepend(new_panel);
 
-                new_panel.append("<footer class='blockquote-footer mx-4 py-1'>最后更新日期：" + response[group]["latest-update"] + "</footer>");
+                new_panel.append("<footer class='blockquote-footer mx-4 py-1 text-right'>最后更新日期：" + response[group]["latest-update"] + "</footer>");
                 for (let i = 0; i < response[group]["mail-files"].length; ++i) {
                     let mail = response[group]["mail-files"][i];
-                    new_panel.find("ul").prepend('<li ><a href="#" file-size="' + mail[1] + '" date-string="' + mail[0] + '" group="' + group + '">' + mail[0] + "</a>  共计 " + mail[2] + " 封  " + (mail[1] / 1024 / 1024).toFixed(2) + 'MB</li>');
+                    new_panel.find("ul").prepend(
+                        '<li>' + (mail[2] > 0 ? ('<a href="#" ' + 'file-size="' + mail[1] + '" date-string="' + mail[0] + '" group="' + group + '">') : "<span>") + mail[0] + (mail[2] > 0 ? "</a>" : "</span>") + "  共计 " + mail[2] + " 封  " + (mail[1] / 1024 / 1024).toFixed(2) + 'MB</li>');
                 }
                 $("#daily-message-loading").addClass("d-none");
                 $("#daily-message-tabs").removeClass("d-none");
