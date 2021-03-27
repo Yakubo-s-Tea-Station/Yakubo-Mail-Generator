@@ -36,6 +36,11 @@ function saveProjectFile() {
     link.click();
     $(link).remove();
 }
+function getDate(strDate){
+    var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/, 
+     function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+    return date;
+  }
 $(() => {
     // 两侧按钮
     $(document).on("click", ".floating-button", (e) => {
@@ -91,6 +96,7 @@ $(() => {
                 new_panel.find("a").attr("aria-labelledby", group + "-tab");
                 $("#mail-panels").prepend(new_panel);
 
+                response[group]["mail-files"] = response[group]["mail-files"].sort((a,b)=>{return getDate(a[0])-getDate(b[0]);});
                 new_panel.append("<footer class='blockquote-footer mx-4 py-1 text-right'>最后更新日期：" + response[group]["latest-update"] + "</footer>");
                 for (let i = 0; i < response[group]["mail-files"].length; ++i) {
                     let mail = response[group]["mail-files"][i];
