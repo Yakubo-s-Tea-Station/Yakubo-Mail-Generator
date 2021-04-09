@@ -1,6 +1,7 @@
 function saveImage() {
     $("body").addClass("body-lock");
     document.body.scrollIntoView();
+    window.scrollTo(0,0);
     let htmlDom = document.querySelector('#messages-canvas');
     html2canvas(htmlDom, {
         allowTaint: false,
@@ -9,12 +10,30 @@ function saveImage() {
         background: "#fff",
         scale: 2
     }).then(function (canvas) {
-        var link = document.createElement("a");
-        link.href = canvas.toDataURL('image/png');
-        link.download = 'screenshot.png';
-        link.click();
+        let imgbase64= canvas.toDataURL('image/png');
+        if(IsPC()){
+            let link = document.createElement("a");
+            link.setAttribute("href", imgbase64);
+            link.setAttribute("download", "screenshot.png");
+            link.click();
+        }else{
+            $("#image-output").removeClass("d-none");
+            $("#image-output>img").attr("src",imgbase64);
+        }
     });
     $("body").removeClass("body-lock");
+}
+function IsPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+         if (userAgentInfo.indexOf(Agents[v]) > 0) {
+             flag = false;
+             break;
+          }
+    }
+    return flag;
 }
 function activateFloatingPanel(name) {
     closeFloatingPanel();
@@ -36,11 +55,11 @@ function saveProjectFile() {
     link.click();
     $(link).remove();
 }
-function getDate(strDate){
-    var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/, 
-     function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+function getDate(strDate) {
+    var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+        function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
     return date;
-  }
+}
 $(() => {
     // 两侧按钮
     $(document).on("click", ".floating-button", (e) => {
@@ -96,7 +115,7 @@ $(() => {
                 new_panel.find("a").attr("aria-labelledby", group + "-tab");
                 $("#mail-panels").prepend(new_panel);
 
-                response[group]["mail-files"] = response[group]["mail-files"].sort((a,b)=>{return getDate(a[0])-getDate(b[0]);});
+                response[group]["mail-files"] = response[group]["mail-files"].sort((a, b) => { return getDate(a[0]) - getDate(b[0]); });
                 new_panel.append("<footer class='blockquote-footer mx-4 py-1 text-right'>最后更新日期：" + response[group]["latest-update"] + "</footer>");
                 for (let i = 0; i < response[group]["mail-files"].length; ++i) {
                     let mail = response[group]["mail-files"][i];

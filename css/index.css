@@ -301,18 +301,38 @@ img.avatar-icon {
 }
 
 /* 加载蒙版 */
-#loading-mask{
-  z-index:100000;
+#loading-mask {
+  z-index: 100000;
   position: fixed;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   height: 100%;
   width: 100%;
   background-color: #ffffff60;
 }
-#loading-mask>h1{
+#loading-mask > h1 {
   position: absolute;
   transform: translateX(50%);
   right: 50%;
   top: 50%;
+}
+/* 图片输出层 */
+#image-output{
+  z-index: 100000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff60;
+}
+#image-output>img{
+  position: absolute;
+  transform:translate(50%,-50%);
+  -ms-transform:translate(50%,-50%);
+  -webkit-transform:translate(50%,-50%);
+  right: 50%;
+  top: 50%;
+  max-height: 80vh;
+  max-width: 70vw;
 }
