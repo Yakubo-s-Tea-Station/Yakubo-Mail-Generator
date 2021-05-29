@@ -264,6 +264,7 @@ body {
 .text-block div[contenteditable] {
   text-align: left;
   max-width: 100%;
+  word-break: break-all;
 }
 /* 文本框 - 填充背景 */
 .text-block > span.square {
